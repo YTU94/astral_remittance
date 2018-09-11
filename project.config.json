@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "touristappid",
-	"projectname": "star-sports",
+	"projectname": "星体汇",
 	"condition": {
 		"search": {
 			"current": -1,
