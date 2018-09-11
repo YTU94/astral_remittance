@@ -30,8 +30,8 @@ exports.cssLoaders = function (options) {
   var px2rpxLoader = {
     loader: 'px2rpx-loader',
     options: {
-      baseDpr: 1,
-      rpxUnit: 0.5
+      baseDpr: 2,
+      rpxUnit: 1
     }
   }
 
