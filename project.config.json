@@ -9,8 +9,8 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "touristappid",
-	"projectname": "星体汇",
+	"appid": "wx3b1ee8a758a826f2",
+	"projectname": "%E6%98%9F%E4%BD%93%E6%B1%87",
 	"condition": {
 		"search": {
 			"current": -1,

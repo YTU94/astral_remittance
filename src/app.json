@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/index/main",
     "pages/coach/main",
-    "pages/venue/main"
+    "pages/venue/main",
+    "pages/index/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -27,5 +27,6 @@ export default {
   -moz-transition: width 2s;
   -webkit-transition: width 2s;
   -o-transition: width 2s;
+  color: #1A1A1A;
 }
 </style>

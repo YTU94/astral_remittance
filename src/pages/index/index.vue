@@ -4,30 +4,16 @@
     <location text="123"></location>
     <!-- slide banner -->
     <swiper-banner></swiper-banner> 
-     
     <div class="main-list">
-      <div class="list-item">
+      <div class="list-item" v-for="(item, index) in mainTipList" :key="index">
         <div class="for-bg">
-          <p class="title">找场馆</p>
+          <p class="title">{{item.name}}</p>
           <p class="content"></p>
         </div>
-        
-      </div>
-      <div class="list-item">
-        <p class="title">找教练</p>
-        <p class="content"></p>
-      </div>
-      <div class="list-item">
-        <p class="title">找优惠</p>
-        <p class="content"></p>
-      </div>
-      <div class="list-item">
-        <p class="title">拿返利</p>
-        <p class="content"></p>
       </div>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner></slider-banner> 
+    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner> 
   </div>
 </template>
 
@@ -41,7 +27,13 @@ export default {
   data () {
     return {
       motto: 'Hello World',
-      userInfo: {}
+      userInfo: {},
+      mainTipList: [
+        {name: '找场馆', value: ''},
+        {name: '找教练', value: ''},
+        {name: '找优惠', value: ''},
+        {name: '拿返利', value: ''}
+      ]
     }
   },
 
@@ -88,14 +80,17 @@ export default {
   .main-list{
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
     padding: 20px;
+    box-sizing: border-box;
     .list-item{
       flex: 0 0 50%;
-      border: 1px solid red;
       box-sizing: border-box;
       padding: 20px;
+      box-sizing: border-box;
       .for-bg{
         border: 1px solid blue;
+        height: 176px;
       }
     }
   }

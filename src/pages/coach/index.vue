@@ -1,11 +1,11 @@
 <template>
-  <div class="counter-warp">
-    <p>Vuex counter：{{ count }}</p>
-    <p>
-      <button @click="increment">+</button>
-      <button @click="decrement">-</button>
-    </p>
-
+  <div class="coach">
+    <!-- swiper -->
+    <swiper-banner></swiper-banner>
+    <!-- 选择门店 -->
+    <select-bar text="选择门店"></select-bar>
+    <!-- coach list -->
+    <coach-item v-for="(obj, index) in coachList" :key="index" :coachItem="obj"></coach-item>
     <a href="/pages/index/main" class="home">去往首页</a>
   </div>
 </template>
@@ -13,8 +13,27 @@
 <script>
 // Use Vuex
 import store from './store'
+import selectBar from '@/components/base/selectBar'
+import swiperBanner from '@/components/swiper-banner'
+import coachItem from '@/components/list/coachItem'
 
 export default {
+  components: {
+    selectBar,
+    coachItem,
+    swiperBanner
+  },
+  data () {
+    return {
+      coachList: [
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', info: 'asd', tags: ['4444', '4444', '4444']},
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', info: 'asd', tags: ['4444', '4444', '4444']},
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', info: 'asd', tags: ['4444', '4444', '4444']},
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', info: 'asd', tags: ['4444', '4444', '4444']},
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', info: 'asd', tags: ['4444', '4444', '4444']}
+      ]
+    }
+  },
   computed: {
     count () {
       return store.state.count
@@ -32,15 +51,7 @@ export default {
 </script>
 
 <style>
-.counter-warp {
-  text-align: center;
-  margin-top: 100px;
+.coach {
 }
-.home {
-  display: inline-block;
-  margin: 100px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
-}
+
 </style>
