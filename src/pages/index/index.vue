@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import card from '@/components/card'
 import swiperBanner from '@/components/swiper-banner'
 import sliderBanner from '@/components/slider-banner'
 import location from '@/components/location'
@@ -38,7 +37,6 @@ export default {
   },
 
   components: {
-    card,
     sliderBanner,
     swiperBanner,
     location

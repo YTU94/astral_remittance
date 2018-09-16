@@ -51,6 +51,10 @@ module.exports = {
   },
   module: {
     rules: [
+      { 
+        test: /\.less$/, 
+        loader: "style-loader!css-loader!less-loader"
+      },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',

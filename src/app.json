@@ -1,8 +1,11 @@
 {
   "pages": [
+    "pages/rebate/main",
     "pages/coach/main",
     "pages/venue/main",
-    "pages/index/main"
+    "pages/index/main",
+    "pages/coupon/main",
+    "pages/submitRebate/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
