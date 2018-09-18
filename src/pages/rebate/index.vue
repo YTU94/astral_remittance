@@ -15,7 +15,7 @@
           <p class="item-address">333333333</p>
         </div>
         <div class="item-right">
-          <div class="right-btn">拿返利 > </div>
+          <div class="right-btn" @click="goSubmit">拿返利 > </div>
         </div>
       </div>
     </div>
@@ -74,6 +74,13 @@ export default {
     this.$http.company.getCompanyList(data).then(res => {
       console.log(res)
     })
+  },
+  methods: {
+    goSubmit () {
+      wx.navigateTo({
+        url: './../submitRebate/main'
+      })
+    }
   }
 }
 </script>

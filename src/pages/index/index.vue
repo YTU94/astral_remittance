@@ -6,7 +6,7 @@
     <swiper-banner></swiper-banner> 
     <div class="main-list">
       <div class="list-item" v-for="(item, index) in mainTipList" :key="index">
-        <div class="for-bg">
+        <div class="for-bg" @click="goTo(item.name)">
           <p class="title">{{item.name}}</p>
           <p class="content"></p>
         </div>
@@ -43,6 +43,25 @@ export default {
   },
 
   methods: {
+    goTo (name) {
+      if (name === '找场馆') {
+        wx.navigateTo({
+          url: './../venue/main'
+        })
+      } else if (name === '找教练') {
+        wx.navigateTo({
+          url: './../coach/main'
+        })
+      } else if (name === '找优惠') {
+        wx.navigateTo({
+          url: './../index/main'
+        })
+      } else if (name === '拿返利') {
+        wx.navigateTo({
+          url: './../rebate/main'
+        })
+      }
+    },
     bindViewTap () {
       const url = '../logs/main'
       wx.navigateTo({ url })

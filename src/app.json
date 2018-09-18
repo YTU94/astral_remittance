@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/index/main",
     "pages/rebate/main",
     "pages/coach/main",
     "pages/venue/main",
-    "pages/index/main",
     "pages/coupon/main",
     "pages/submitRebate/main"
   ],

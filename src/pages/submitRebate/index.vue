@@ -1,13 +1,36 @@
 <template>
-  <div class="venue">
-    <!-- swiper -->
-    <swiper-banner></swiper-banner> 
-    <!-- 热门推荐 -->
-    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner>
+  <div class="rebate-order">
     <!-- 选择门店 -->
     <select-bar text="选择门店"></select-bar>
+    <!-- name && rebate -->
+    <div class="order-line">
+      <span class="order-line__name">**闯关</span>
+      <span class="order-line__rebate">返利7&</span>
+    </div>
+    <!-- order price -->
+    <div class="order-price">
+      <div class="order-price__label"></div>
+      <div class="order-price__line">
+        <input type="text" class="order-price__input">
+        <div class="order-price__close"></div>
+      </div>
+      <div class="order-price__line">
+        <span class="line-label">可用优惠</span>
+        <span class="line-c">1张可用></span>
+      </div>
+      <div class="order-price__line">
+        <span class="line-label">上传病症</span>
+        <span class="line-c">></span>
+      </div>
+    </div>
 
-    <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj"></venue-item>
+    <!-- img input priview-->
+    <div class="img-preview"></div>
+    <!-- footer operation -->
+    <div class="footer">
+      <div class="footer-label">*980</div>
+      <div class="footer-btn">确认递交</div>
+    </div>
   </div>
 </template>
 
