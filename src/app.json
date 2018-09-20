@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/person/main",
     "pages/rebate/main",
     "pages/coach/main",
     "pages/venue/main",
@@ -20,7 +21,7 @@
       "pagePath": "pages/index/main",
       "text": "首页"
     }, {
-      "pagePath": "pages/coach/main",
+      "pagePath": "pages/person/main",
       "text": "日志"
     }]
   }

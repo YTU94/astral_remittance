@@ -5,13 +5,13 @@
     <!-- name && rebate -->
     <div class="order-line">
       <span class="order-line__name">**闯关</span>
-      <span class="order-line__rebate">返利7&</span>
+      <span class="order-line__rebate">返利7%</span>
     </div>
     <!-- order price -->
     <div class="order-price">
       <div class="order-price__label"></div>
       <div class="order-price__line">
-        <input type="text" class="order-price__input">
+        <input type="text" class="order-price__priceInput">
         <div class="order-price__close"></div>
       </div>
       <div class="order-price__line">
@@ -71,14 +71,56 @@ export default {
 }
 </script>
 
-<style>
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+<style lang="less">
+@import '../../assets/style/variable.less';
+.rebate-order {
+  .order-line{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: blue;
+    &__name, &__rebate{
+      flex: 0 0 auto;
+    }
+    &__name{
+      color: @font-color-black;
+      font-size: 36px;
+    }
+    &__rebate{
+      color: red;
+      font-size: 28px;
+    }
+  }
+  .order-price{
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    &__label{
+      color: red;
+      font-size: 28px;
+    }
+    &_line{
+      line-height: 1.6;
+      border-bottom: 1px solid @border-color;
+      position: relative;
+      width: 100%;
+      .order-line__priceInput{
+        font-size: 48px;
+        color: @font-color-black;
+      }
+      .order-line__close, .line-c{
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
 }
 
-.log-item {
-  margin: 10rpx;
-}
 </style>
