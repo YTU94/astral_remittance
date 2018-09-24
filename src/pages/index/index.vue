@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner :sliderList="sliderList"  :imgWidth="100" :imgHeight="100"></slider-banner> 
+    <slider-banner :sliderList="sliderList"  @guideTo="guideTo" :imgWidth="100" :imgHeight="100"></slider-banner> 
   </div>
 </template>
 
@@ -73,6 +73,11 @@ export default {
           url: './../rebate/main'
         })
       }
+    },
+    guideTo () {
+      wx.navigateTo({
+        url: './../venue/main'
+      })
     },
     bindViewTap () {
       const url = '../logs/main'

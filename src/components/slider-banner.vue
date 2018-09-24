@@ -4,7 +4,7 @@
     <!-- title -->
     <div class="slider-banner__title">
         <div class="title-msg">热门推荐</div>
-        <div class="title-text">全部</div>
+        <div class="title-text" @click="guideTo">全部</div>
     </div>
     <!-- slide bannber -->
     <scroll-view  class="slider-banner__slider" scroll-x="true" style="width: 100%; height:200px; white-space:nowrap;">
@@ -74,6 +74,9 @@ export default {
     },
     tapMove (e) {
       this.scrollTop = this.scrollTop + 10
+    },
+    guideTo () {
+      this.$emit('guideTo', {})
     }
   }
 }
