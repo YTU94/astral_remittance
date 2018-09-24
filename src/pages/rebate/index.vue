@@ -53,24 +53,7 @@ export default {
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
-    const data = {
-      'companyLevelId': 0,
-      'creator': 'string',
-      'creatorId': 0,
-      'id': 0,
-      'idList': [
-        0
-      ],
-      'identification': 'string',
-      'legalPerson': 'string',
-      'name': 'string',
-      'pageNumber': 0,
-      'pageSize': 0,
-      'setUpTime': '2018-09-17T15:48:47.103Z',
-      'starLevel': 0,
-      'updater': 'string',
-      'updaterId': 0
-    }
+    const data = {}
     this.$http.company.getCompanyList(data).then(res => {
       console.log(res)
     })

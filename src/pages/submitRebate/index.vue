@@ -9,10 +9,10 @@
     </div>
     <!-- order price -->
     <div class="order-price">
-      <div class="order-price__label"></div>
+      <div class="order-price__label">返利总额</div>
       <div class="order-price__line">
-        <input type="text" class="order-price__priceInput">
-        <div class="order-price__close"></div>
+        <input type="text" class="line-priceInput" placeholder="请输入金额">
+        <div class="line-close"></div>
       </div>
       <div class="order-price__line">
         <span class="line-label">可用优惠</span>
@@ -74,6 +74,8 @@ export default {
 <style lang="less">
 @import '../../assets/style/variable.less';
 .rebate-order {
+  width: 100%;
+  height: 100%;
   .order-line{
     position: relative;
     top: 0;
@@ -104,21 +106,67 @@ export default {
       color: red;
       font-size: 28px;
     }
-    &_line{
+    &__line{
       line-height: 1.6;
       border-bottom: 1px solid @border-color;
       position: relative;
       width: 100%;
-      .order-line__priceInput{
+      height: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .line-priceInput{
+        flex: 1;
         font-size: 48px;
         color: @font-color-black;
       }
-      .order-line__close, .line-c{
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translate(-50%, 0);
+      .line-close{
+        flex: 0 0 auto;
+        border: 1px solid RED;
+        width: 16px;
+        height: 16px;
       }
+      .line-lable, .line-c{
+        flex: 0 0 auto;
+      }
+    }
+  }
+
+  .img-preview{
+    width: 300px;
+    height: 175px;
+    border: 1px solid red;
+    position: relative;
+    top: 0;
+    margin: 0 auto;
+  }
+
+  .footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    justify-content: center;
+    .footer-label{
+      flex: 1;
+      background: blue;
+      color: red;
+      height: inherit;
+      display: flex;
+      align-items: center;
+    }
+    .footer-btn{
+      flex: 0 0 auto;
+      height: inherit;
+
+      padding: 0px 20px;
+      background: green;
+      color: #fff;
+      display: flex;
+      align-items: center;
     }
   }
 }

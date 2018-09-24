@@ -3,7 +3,7 @@
     <!-- swiper -->
     <swiper-banner></swiper-banner> 
     <!-- 热门推荐 -->
-    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner>
+    <slider-banner :sliderList="sliderList" :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 选择门店 -->
     <select-bar text="选择门店"></select-bar>
 
@@ -31,19 +31,27 @@ export default {
   data () {
     return {
       logs: [],
-      venueList: [
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'}
-      ]
+      sliderList: []
     }
   },
 
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
+    this.init()
+  },
+  methods: {
+    init () {
+      this.$http.store.getStoreList({}).then(res => {
+        this.sliderList = res.pageList.list
+        this.sliderList.forEach(obj => {
+          obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+          obj.name1 = obj.name
+          obj.name2 = obj.address
+        })
+        console.log(this.sliderList, '-------')
+      })
+    }
   }
 }
 </script>

@@ -1,0 +1,14 @@
+{
+    "editor.tabSize": 2,
+    "eslint.validate": [
+        "javascript",
+        {
+            "language": "vue",
+            "autoFix": true
+        },
+        "html",
+        "vue",
+        "javascriptreact"
+    ],
+    "eslint.autoFixOnSave": true
+}

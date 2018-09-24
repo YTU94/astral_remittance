@@ -7,9 +7,8 @@
         <div class="title-text">全部</div>
     </div>
     <!-- slide bannber -->
-
-    <scroll-view class="slider-banner__slider" scroll-x="true" style="width: 100%; height:200px; white-space:nowrap;">
-      <view class="slider-item" v-for="(item, index) in imgUrls" :key="index">
+    <scroll-view  class="slider-banner__slider" scroll-x="true" style="width: 100%; height:200px; white-space:nowrap;">
+      <view v-if="sliderList" class="slider-item" v-for="(item, index) in sliderList" :key="index">
         <img class="slider-item__img" :src="item.imgUrl" v-bind:style="{width: imgWidth + 'px', height: imgHeight + 'px'}">
         <!-- <img class="slider-item__img" :src="item.imgUrl" :width="imgWidth + 'rpx'" :height="imgHeight + 'rpx'"> -->
         <p class="slider-item__msgOne">{{item.name1}}</p>
@@ -29,18 +28,22 @@ export default {
     },
     imgHeight: {
       default: 100
+    },
+    sliderList: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
-      imgUrls: [
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name1: 'name1', name2: 'name2'},
-        {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg', name1: 'name1', name2: 'name2'},
-        {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', name1: 'name1', name2: 'name2'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name1: 'name1', name2: 'name2'},
-        {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg', name1: 'name1', name2: 'name2'},
-        {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', name1: 'name1', name2: 'name2'}
-      ],
+      // imgUrls: [
+      //   {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name1: 'name1', name2: 'name2'},
+      //   {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg', name1: 'name1', name2: 'name2'},
+      //   {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', name1: 'name1', name2: 'name2'},
+      //   {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name1: 'name1', name2: 'name2'},
+      //   {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg', name1: 'name1', name2: 'name2'},
+      //   {imgUrl: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', name1: 'name1', name2: 'name2'}
+      // ],
       indicatorDots: true,
       autoplay: true,
       interval: 5000,

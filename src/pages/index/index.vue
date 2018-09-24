@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner> 
+    <slider-banner :sliderList="sliderList"  :imgWidth="100" :imgHeight="100"></slider-banner> 
   </div>
 </template>
 
@@ -32,7 +32,8 @@ export default {
         {name: '找教练', value: ''},
         {name: '找优惠', value: ''},
         {name: '拿返利', value: ''}
-      ]
+      ],
+      sliderList: []
     }
   },
 
@@ -43,6 +44,17 @@ export default {
   },
 
   methods: {
+    init () {
+      this.$http.store.getStoreList({}).then(res => {
+        this.sliderList = res.pageList.list
+        this.sliderList.forEach(obj => {
+          obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+          obj.name1 = obj.name
+          obj.name2 = obj.address
+        })
+        console.log(this.sliderList, '-------')
+      })
+    },
     goTo (name) {
       if (name === '找场馆') {
         wx.navigateTo({
@@ -86,6 +98,7 @@ export default {
   created () {
     // 调用应用实例的方法获取全局数据
     this.getUserInfo()
+    this.init()
   }
 }
 </script>

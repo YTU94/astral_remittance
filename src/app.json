@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/newsList/main",
+    "pages/submitRebate/main",
     "pages/person/main",
     "pages/rebate/main",
     "pages/coach/main",
     "pages/venue/main",
-    "pages/coupon/main",
-    "pages/submitRebate/main"
+    "pages/coupon/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

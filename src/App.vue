@@ -7,6 +7,11 @@ export default {
     wx.setStorageSync('logs', logs)
 
     console.log('app created and cache logs by setStorageSync')
+  },
+  mounted () {
+    this.$http.user.login({}).then(res => {
+      console.log(res)
+    })
   }
 }
 </script>
