@@ -1,31 +1,49 @@
 <template>
   <div class="rebate-order">
     <!-- 选择门店 -->
-    <select-bar text="选择门店"></select-bar>
+    <!-- <select-bar text="选择门店"></select-bar> -->
     <!-- name && rebate -->
-    <div class="order-line">
-      <span class="order-line__name">**闯关</span>
-      <span class="order-line__rebate">返利7%</span>
+    <div class="order-content">
+      <div class="order-line order-line__select">
+        <span class="order-line__name ">选择门店</span>
+        <!-- <span class="order-line__rebate">返利7%</span> -->
+      </div>
+      <div class="order-line">
+        <span class="order-line__name">阿斯达所多</span>
+        <!-- <span class="order-line__rebate">返利7%</span> -->
+      </div>
     </div>
+    
     <!-- order price -->
-    <div class="order-price">
-      <div class="order-price__label">返利总额</div>
-      <div class="order-price__line">
-        <input type="text" class="line-priceInput" placeholder="请输入金额">
-        <div class="line-close"></div>
+    <div class="order-content">
+      <div class="order-line">
+        <span class="order-line__name">返利</span>
+        <span class="order-line__rebate color-gold">7%</span>
       </div>
-      <div class="order-price__line">
-        <span class="line-label">可用优惠</span>
-        <span class="line-c">1张可用></span>
+      
+      <div class="order-line">
+        <span class="order-line__name">可用优惠</span>
+        <span class="order-line__rebate">1张可用></span>
       </div>
-      <div class="order-price__line">
-        <span class="line-label">上传病症</span>
-        <span class="line-c">></span>
+      <div class="order-line">
+        <div class="order-line__name">消费金额</div>
+        <div class="order-line__rebate">
+          <input type="text" class="line-priceInput" style="text-align:right;" placeholder="请输入金额">
+          <div class="line-close"></div>
+        </div>
       </div>
     </div>
+    
 
     <!-- img input priview-->
-    <div class="img-preview"></div>
+    <div class="order-content">
+      <div class="order-line">
+        <span class="order-line__name">上传病症</span>
+      </div>
+      <div class="order-line">
+        <div class="order-line__img"></div>
+      </div>
+    </div>
     <!-- footer operation -->
     <div class="footer">
       <div class="footer-label">*980</div>
@@ -76,26 +94,48 @@ export default {
 .rebate-order {
   width: 100%;
   height: 100%;
-  .order-line{
-    position: relative;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: blue;
-    &__name, &__rebate{
-      flex: 0 0 auto;
-    }
-    &__name{
-      color: @font-color-black;
-      font-size: 36px;
-    }
-    &__rebate{
-      color: red;
-      font-size: 28px;
+  background-color: rgba(239,242,245,1);
+  .order-content{
+    background-color: #fff;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    .order-line{
+      position: relative;
+      top: 0;
+      left: 0;
+      display: flex;
+      height: 100px;
+      color: #333333;
+      padding-right: 40px;
+      font-size: 30px;
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid @border-color;
+      &__name, &__rebate{
+        flex: 0 0 auto;
+        font-size: inherit;
+        color: inherit;
+      }
+      .color-gold{
+        color: #ED5826;
+      }
+      &__select{
+        height: 70px;
+        font-size: 24px;
+        color: #666666;
+      }
+      &_img{
+        width: 300px;
+        height: 175px;
+        border: 1px solid red;
+        position: relative;
+        top: 0;
+        margin: 0 auto;
+      }
     }
   }
+  
   .order-price{
     position: relative;
     top: 0;
@@ -117,7 +157,8 @@ export default {
       align-items: center;
       .line-priceInput{
         flex: 1;
-        font-size: 48px;
+        font-size: 36px;
+        text-align: right;
         color: @font-color-black;
       }
       .line-close{
@@ -132,14 +173,7 @@ export default {
     }
   }
 
-  .img-preview{
-    width: 300px;
-    height: 175px;
-    border: 1px solid red;
-    position: relative;
-    top: 0;
-    margin: 0 auto;
-  }
+  
 
   .footer{
     position: absolute;

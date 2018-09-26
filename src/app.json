@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/newsInfo/main",
     "pages/index/main",
     "pages/newsList/main",
+    "pages/newsInfo/main",
     "pages/submitRebate/main",
     "pages/person/main",
     "pages/rebate/main",

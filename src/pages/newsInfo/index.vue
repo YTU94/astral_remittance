@@ -1,6 +1,6 @@
 <template>
   <div class="mews-info">
-    <h1>{{newsInfo.title}}</h1>
+    <p class="info-title">{{newsInfo.title}}</p>
     <div class="line-msg">
       <span class="info-user">{{newsInfo.user}}</span>
       <span class="info-date">{{newsInfo.date}}</span>
@@ -52,6 +52,16 @@ export default {
 <style lang="less">
 .mews-info{
   padding: 40px 20px;
+  .info-title{
+    font-size: 48px;
+    color: #000;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
   .line-msg{
     padding: 30px 0;
     .info-user{

@@ -1,5 +1,5 @@
 <template>
-  <div class="venue-item">
+  <div class="venue-item" @click="guideTo">
     <div class="left">
       <img :src="venueItem.imgUrl" alt="alt" v-bind:style="{width: imgWidth + 'rpx', height: imgHeight + 'rpx'}">
     </div>
@@ -36,7 +36,12 @@ export default {
   data () {
     return {}
   },
-  mounted () {}
+  mounted () {},
+  methods: {
+    guideTo () {
+      this.$emit('guideTo', this.venueItem)
+    }
+  }
 }
 </script>
 

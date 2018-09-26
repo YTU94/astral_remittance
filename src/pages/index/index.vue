@@ -3,7 +3,8 @@
     <!-- 定位 -->
     <location text="123"></location>
     <!-- slide banner -->
-    <swiper-banner></swiper-banner> 
+    <swiper-banner></swiper-banner>
+    <div class="" @click="toAllNews">全部</div>
     <div class="main-list">
       <div class="list-item" v-for="(item, index) in mainTipList" :key="index">
         <div class="for-bg" @click="goTo(item.name)">
@@ -42,7 +43,13 @@ export default {
     swiperBanner,
     location
   },
-
+  created () {
+    // 调用应用实例的方法获取全局数据
+  },
+  mounted () {
+    this.getUserInfo()
+    this.init()
+  },
   methods: {
     init () {
       this.$http.store.getStoreList({}).then(res => {
@@ -66,7 +73,7 @@ export default {
         })
       } else if (name === '找优惠') {
         wx.navigateTo({
-          url: './../index/main'
+          url: './../coupon/main'
         })
       } else if (name === '拿返利') {
         wx.navigateTo({
@@ -97,14 +104,14 @@ export default {
     },
     clickHandle (msg, ev) {
       console.log('clickHandle:', msg, ev)
+    },
+    toAllNews () {
+      wx.navigateTo({
+        url: './../newsList/main'
+      })
     }
-  },
-
-  created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
-    this.init()
   }
+
 }
 </script>
 

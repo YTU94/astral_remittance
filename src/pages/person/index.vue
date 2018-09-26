@@ -21,7 +21,6 @@
     <div class="user">
       <!-- 未实名 -->
       <div class="realname-item" @click="identification">
-        <!-- <h4>去改实名状态，临时开放入口</h4> -->
       </div>
       <div v-if="!userInfo.isRealname" class="user-realname">
         <div class="realname-item">

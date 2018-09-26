@@ -9,8 +9,14 @@ export default {
     console.log('app created and cache logs by setStorageSync')
   },
   mounted () {
-    this.$http.user.login({}).then(res => {
-      console.log(res)
+    let that = this
+    wx.login({
+      success: function (res) {
+        console.log(res, 'login res')
+        that.$http.user.login({code: res.code}).then(res => {
+          console.log(res)
+        })
+      }
     })
   }
 }
