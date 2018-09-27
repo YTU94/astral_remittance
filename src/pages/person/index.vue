@@ -30,6 +30,15 @@
           去实名
         </div>
       </div>
+
+      <div v-if="!userInfo.isRealname" class="user-realname">
+        <div class="realname-item">
+          我的优惠券
+        </div>
+        <div class="realname-item" @click="identification">
+          >
+        </div>
+      </div>
       
       <!-- 已实名 -->
       <div v-else class="user-realname">

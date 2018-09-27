@@ -36,14 +36,20 @@ export default {
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
-        console.log(latitude, longitude)
+        console.log('经纬度', latitude, longitude)
       }
     })
+    this.getCityList()
   },
   methods: {
     bindRegionChange (e) {
       console.log('picker发送选择改变，携带值为', e.mp.detail.value)
       this.region = e.mp.detail.value
+    },
+    getCityList () {
+      this.$http.cities.getCityList({}).then(res => {
+        console.log('cities', res)
+      })
     }
   }
 }

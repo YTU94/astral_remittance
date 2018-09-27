@@ -40,13 +40,17 @@
       <div class="order-line">
         <span class="order-line__name">上传病症</span>
       </div>
-      <div class="order-line">
-        <div class="order-line__img"></div>
+      <div class="order-line line-height-auto" style="height:auto;">
+        <img v-if="imgUrl" :src="imgUrl" alt="" class="order-line__img">
+
+        <div v-else class="order-line__img"  @click="selectImg">
+          选择图片
+        </div>
       </div>
     </div>
     <!-- footer operation -->
     <div class="footer">
-      <div class="footer-label">*980</div>
+      <div class="footer-label">¥980</div>
       <div class="footer-btn">确认递交</div>
     </div>
   </div>
@@ -71,6 +75,7 @@ export default {
 
   data () {
     return {
+      imgUrl: null,
       logs: [],
       venueList: [
         {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
@@ -85,6 +90,22 @@ export default {
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
+  },
+  methods: {
+    selectImg () {
+      let that = this
+      wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function (res) {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          var tempFilePaths = res.tempFilePaths
+          that.imgUrl = tempFilePaths[0]
+          console.log('tempFilePaths', tempFilePaths)
+        }
+      })
+    }
   }
 }
 </script>
@@ -120,60 +141,26 @@ export default {
       .color-gold{
         color: #ED5826;
       }
+      .line-height-auto{
+        height: auto!important;
+      }
       &__select{
         height: 70px;
         font-size: 24px;
         color: #666666;
       }
-      &_img{
-        width: 300px;
-        height: 175px;
+      &__img{
+        width: 100%;
+        height: 334px;
+        line-height: 334px;
         border: 1px solid red;
         position: relative;
         top: 0;
-        margin: 0 auto;
+        text-align: center;
+        margin: 30px auto 40px;
       }
     }
   }
-  
-  .order-price{
-    position: relative;
-    top: 0;
-    left: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    &__label{
-      color: red;
-      font-size: 28px;
-    }
-    &__line{
-      line-height: 1.6;
-      border-bottom: 1px solid @border-color;
-      position: relative;
-      width: 100%;
-      height: 90px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .line-priceInput{
-        flex: 1;
-        font-size: 36px;
-        text-align: right;
-        color: @font-color-black;
-      }
-      .line-close{
-        flex: 0 0 auto;
-        border: 1px solid RED;
-        width: 16px;
-        height: 16px;
-      }
-      .line-lable, .line-c{
-        flex: 0 0 auto;
-      }
-    }
-  }
-
-  
 
   .footer{
     position: absolute;
@@ -186,21 +173,22 @@ export default {
     justify-content: center;
     .footer-label{
       flex: 1;
-      background: blue;
-      color: red;
+      background: #333333;
+      color: #fff;
       height: inherit;
       display: flex;
       align-items: center;
+      padding-left: 40px;
     }
     .footer-btn{
       flex: 0 0 auto;
       height: inherit;
-
-      padding: 0px 20px;
-      background: green;
+      padding: 0px 40px;
+      background: #2BC68C;
       color: #fff;
       display: flex;
       align-items: center;
+      line-height: 1;
     }
   }
 }

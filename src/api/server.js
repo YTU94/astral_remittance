@@ -6,6 +6,7 @@ fly.config.baseURL = 'http://47.92.217.9:9090'
 fly.interceptors.request.use((request) => {
   // 给所有请求添加自定义header
   request.headers['X-Tag'] = 'flyio'
+  request.headers['third-session'] = 'third-session'
   // 打印出请求体
   console.log(request.body)
   // 终止请求
@@ -20,7 +21,15 @@ fly.interceptors.request.use((request) => {
 fly.interceptors.response.use(
   (response) => {
     // 只将请求结果的data字段返回
-    return response.data
+    if (response.data.success) {
+      return response.data
+    } else {
+      wx.showToast({
+        title: response.data.messages,
+        icon: 'none',
+        duration: 1000
+      })
+    }
   },
   (error) => {
     console.log(error)
@@ -29,9 +38,9 @@ fly.interceptors.response.use(
   }
 )
 
-fly.interceptors.request.use((config, promise) => {
-  config.headers['X-Tag'] = 'flyio'
-  return config
-})
+// fly.interceptors.request.use((config, promise) => {
+//   config.headers['X-Tag'] = 'flyio'
+//   return config
+// })
 
 export default fly

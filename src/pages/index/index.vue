@@ -45,6 +45,7 @@ export default {
   },
   created () {
     // 调用应用实例的方法获取全局数据
+    console.log('index created')
   },
   mounted () {
     this.getUserInfo()
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     init () {
-      this.$http.store.getStoreList({}).then(res => {
+      this.$http.store.getStoreList({isHot: true}).then(res => {
         this.sliderList = res.pageList.list
         this.sliderList.forEach(obj => {
           obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'

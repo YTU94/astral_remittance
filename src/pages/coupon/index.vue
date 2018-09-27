@@ -1,14 +1,12 @@
 <template>
   <div class="coupon">
-    <!-- 热门推荐 -->
-    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 优惠券列表 -->
     <div class="coupon-item" v-if="couponList" v-for="(coupon, index) in couponList" :key="index">
       <div class="item-line">
         <div class="line-left coupon-price">
           {{coupon.content}}
         </div>
-        <div class="line-right coupon-btn">领取</div>
+        <div class="line-right coupon-btn" @click="collectCoupons(coupon.id)">领取</div>
       </div>
       <div class="item-line">
         <div class="line-left use-range">
@@ -24,12 +22,9 @@
 
 <script>
 import { formatTime } from '@/utils/index'
-import sliderBanner from '@/components/slider-banner'
 
 export default {
-  components: {
-    sliderBanner
-  },
+  components: {},
 
   data () {
     return {
@@ -47,9 +42,23 @@ export default {
   },
   methods: {
     init () {
-      this.$http.coupon.getCouponList({}).then(res => {
+      const data = {
+        pageNumber: 1,
+        pageSize: 10
+      }
+      this.$http.coupon.getCouponList(data).then(res => {
         console.log(res)
         this.couponList = res.pageList.list
+      })
+    },
+    // 领取优惠券
+    collectCoupons (id) {
+      this._collectCoupons(id)
+    },
+    _collectCoupons (id) {
+      debugger
+      this.$http.coupon.collectCoupons({couponId: id}).then(res => {
+        console.log(res)
       })
     }
   }

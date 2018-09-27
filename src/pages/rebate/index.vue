@@ -53,15 +53,28 @@ export default {
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
-    const data = {}
-    this.$http.company.getCompanyList(data).then(res => {
-      console.log(res)
-    })
+    // const data = {}
+    // this.$http.company.getCompanyList(data).then(res => {
+    //   console.log(res)
+    // })
+  },
+  mounted () {
+    this.init()
   },
   methods: {
     goSubmit () {
       wx.navigateTo({
         url: './../submitRebate/main'
+      })
+    },
+    init () {
+      this.$http.store.getStoreList({}).then(res => {
+        this.sliderList = res.pageList.list
+        this.sliderList.forEach(obj => {
+          obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+          obj.name1 = obj.name
+          obj.name2 = obj.address
+        })
       })
     }
   }
