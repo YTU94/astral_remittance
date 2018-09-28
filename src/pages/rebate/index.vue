@@ -10,12 +10,12 @@
     </div>
     <!-- 门店列表 -->
     <div class="revate-list">
-      <div class="revate-item">
-        <div class="item-name textOverflow">店1111111111111111111111111111111111111111名</div>
-        <div class="item-offer textOverflow">返利111111111111111111111111111111111111111111111117%</div>
+      <div class="revate-item" v-for="(store, index) in storeList" :key="index">
+        <div class="item-name textOverflow">{{store.name}}</div>
+        <div class="item-offer textOverflow">返利{{store.discount}}</div>
         <div class="item-line">
-          <p class="item-address textOverflow">dizh1111111111111111111111111111111111111111i</p>
-          <div class="right-btn" @click="goSubmit">拿返利&nbsp;&nbsp;<span>></span></div>
+          <p class="item-address textOverflow">{{store.address}}</p>
+          <div class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></div>
         </div>
       </div>
     </div>
@@ -40,6 +40,7 @@ export default {
   data () {
     return {
       logs: [],
+      storeList: [],
       venueList: [
         {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
         {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
@@ -62,19 +63,18 @@ export default {
     this.init()
   },
   methods: {
-    goSubmit () {
+    goSubmit (store) {
       wx.navigateTo({
-        url: './../submitRebate/main'
+        url: `./../submitRebate/main?id=${store.id}&name=${store.name}&discount=${store.discount}`
       })
     },
     init () {
+      this._getStoreList()
+    },
+    _getStoreList () {
       this.$http.store.getStoreList({}).then(res => {
-        this.sliderList = res.pageList.list
-        this.sliderList.forEach(obj => {
-          obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
-          obj.name1 = obj.name
-          obj.name2 = obj.address
-        })
+        this.total = res.pageList.count
+        this.storeList = res.pageList.list
       })
     }
   }
@@ -139,7 +139,7 @@ export default {
           flex: 0 0 auto;
           height: 50px;
           line-height: 50px;
-          padding: 0 20px;
+          padding: 0 25px;
           margin-right: 30px;
           font-size: 24px;
           color: #fff;

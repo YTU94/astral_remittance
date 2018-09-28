@@ -3,49 +3,21 @@
     <div class="header">
       <div class="user-msg-card">
         <div class="top">
-          <div class="msg">
-            <div class="name" :class="{'organ-name':  !userInfo.isOrgan}">
-              <span v-if="userInfo.isRealname">{{userInfo.name}}</span>
-              <open-data v-else type="userNickName"></open-data>
-              
-              
-            </div>
+          <div class="organ-name">
+            <open-data type="userNickName"></open-data>
           </div>
           <div class="avatar">
-            <!-- <img v-if="userInfo.isRealname" class="avavtao-img" src="/static/images/contract-null.png" alt="logo"> -->
             <open-data class="avavtao-img" type="userAvatarUrl"></open-data>
           </div>
         </div>
       </div>
     </div>
     <div class="user">
-      <!-- 未实名 -->
-      <div class="realname-item" @click="identification">
-      </div>
-      <div v-if="!userInfo.isRealname" class="user-realname">
-        <div class="realname-item">
-          实名认证
-        </div>
-        <div class="realname-item" @click="identification">
-          去实名
-        </div>
-      </div>
-
-      <div v-if="!userInfo.isRealname" class="user-realname">
-        <div class="realname-item">
-          我的优惠券
-        </div>
-        <div class="realname-item" @click="identification">
-          >
-        </div>
-      </div>
-      
-      <!-- 已实名 -->
-      <div v-else class="user-realname">
+      <div class="user-realname">
         <ul class="info">
-          <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || ''}}</span></li>
-          <li class="info-item">身份证号<span class="info-item-content">{{userInformation.idno || ''}}</span></li>
-          <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || ''}}</span></li>
+          <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || '1'}}</span></li>
+          <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || '2'}}</span></li>
+          <li class="info-item">我的优惠卷<span class="info-item-content">{{userInformation.idno || '3'}}</span></li>
         </ul>
       </div>
     </div>
@@ -109,6 +81,7 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../assets/style/variable.less';
 
 .header{
   position: relative;;
@@ -118,6 +91,7 @@ export default {
   height: auto;
   padding: 40px 40px 20px;
   box-sizing: border-box;
+  // background-color: @bg-color;
   .user-msg-card{
     width: 100%;
     height: auto;
@@ -129,6 +103,7 @@ export default {
     box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
     border-radius: 8px;
     height: 242px;
+    background: #555060;
     .top{
       display: flex;
       position: relative;
@@ -136,31 +111,13 @@ export default {
       left: 0;
       justify-content: space-around;
       align-items: flex-start;
-      .msg{
+        
+      .organ-name{
         flex: 1 1 auto;
-        color: #1A1A1A;
         text-align: left;
-        .name{
-          font-size: 28px;
-          .img__realname {
-            width: 24px;
-            height: 24px;
-          }
-        }
-        .organ-name{
-          font-size: 40px!important;
-          font-weight: 600;
-          font-family:PingFangSC-Medium;
-          color:rgba(26,26,26,1);
-        }
-      }
-      .real-name{
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        color: #1A1A1A;
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 40px!important;
+        font-family:PingFangSC-Medium;
+        color:#fff;
       }
       .avatar{
         flex: 0 0 100px;
@@ -238,6 +195,7 @@ export default {
     .info-item-content{
       float: right;
       font-size:28rpx;
+      color: @font-color-gray;
     }
     &:last-child{
       border-bottom:0rpx;

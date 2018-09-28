@@ -9,7 +9,7 @@
         <!-- <span class="order-line__rebate">返利7%</span> -->
       </div>
       <div class="order-line">
-        <span class="order-line__name">阿斯达所多</span>
+        <span class="order-line__name">{{store.name}}</span>
         <!-- <span class="order-line__rebate">返利7%</span> -->
       </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="order-content">
       <div class="order-line">
         <span class="order-line__name">返利</span>
-        <span class="order-line__rebate color-gold">7%</span>
+        <span class="order-line__rebate color-gold">{{store.discount}}%</span>
       </div>
       
       <div class="order-line">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { formatTime } from '@/utils/index'
+// import { formatTime } from '@/utils/index'
 import card from '@/components/card'
 import selectBar from '@/components/base/selectBar'
 import swiperBanner from '@/components/swiper-banner'
@@ -75,21 +75,23 @@ export default {
 
   data () {
     return {
+      store: {
+        id: this.$mp.query.id,
+        name: this.$mp.query.name,
+        discount: this.$mp.query.discount
+      },
       imgUrl: null,
-      logs: [],
-      venueList: [
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'}
-      ]
+      logs: []
     }
   },
 
   created () {
-    const logs = (wx.getStorageSync('logs') || [])
-    this.logs = logs.map(log => formatTime(new Date(log)))
+    // const logs = (wx.getStorageSync('logs') || [])
+    // this.logs = logs.map(log => formatTime(new Date(log)))
+  },
+  mounted () {
+    debugger
+    console.log(this.store, 'store')
   },
   methods: {
     selectImg () {
