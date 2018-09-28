@@ -7,7 +7,7 @@
       <div class="line-name">
           {{coachItem.name}}
       </div>
-      <div class="line-star">五角心 / 累计上课{{}}节</div>
+      <div class="line-star"><span class="star">★★★</span> / 累计上课{{}}节</div>
       <div class="line-info">{{coachItem.info}}</div>
 
       <div class="line-tag">
@@ -61,33 +61,38 @@ export default {
     box-sizing: border-box;
     position: relative;
     .line-name{
-      color: #000000;
-      font-size: 36px;
+      color: #333333;
+      font-size: 30px;
       font-weight: bold;
       
     }
     
     .line-star{
       color: @font-color-gray;
-      font-size: 24px;
+      font-size: 20px;
     }
     .line-info{
       color: @font-color-default;
-      font-size: 28px;
+      font-size: 24px;
       padding-bottom: 20px;
-      border-bottom: 1px solid @border-color;
       margin-bottom: 20px;
     }
     .line-tag{
-      font-size: 28px;
+      font-size: 20px;
       color: @font-color-default;
       position: absolute;
       bottom: 0;
       left: 0;
       padding-left: 20px;
       box-sizing: border-box;
+      overflow: hidden;
+      white-space: nowrap;
       .tag-item{
-        margin-bottom: 30px;
+        color: #666666;
+        background:rgba(239,239,239,1);
+        line-height: 1.6;
+        padding: 0 10px;
+        margin-right: 15px;
         &:last-child{
           margin-right: 0;
         }

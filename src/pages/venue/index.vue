@@ -1,13 +1,19 @@
 <template>
   <div class="venue">
     <!-- swiper -->
-    <swiper-banner></swiper-banner> 
+    <div class="top-banner">
+      <swiper-banner></swiper-banner>
+    </div>
     <!-- 热门推荐 -->
-    <slider-banner :sliderList="sliderList" :imgWidth="100" :imgHeight="100"></slider-banner>
+    <slider-banner :sliderList="venueList" :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 选择门店 -->
-    <select-bar text="选择门店"></select-bar>
+    <div class="select-venue">
+      <select-bar text="选择门店"></select-bar>
+    </div>
+    <div class="venue-list">
 
-    <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj"></venue-item>
+      <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj"></venue-item>
+    </div>
   </div>
 </template>
 
@@ -30,8 +36,9 @@ export default {
 
   data () {
     return {
+      total: null,
       logs: [],
-      sliderList: []
+      venueList: []
     }
   },
 
@@ -45,27 +52,43 @@ export default {
   methods: {
     init () {
       this.$http.store.getStoreList({}).then(res => {
-        this.sliderList = res.pageList.list
-        this.sliderList.forEach(obj => {
+        this.total = res.pageList.count
+        this.venueList = res.pageList.list
+        this.venueList.forEach(obj => {
           obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
           obj.name1 = obj.name
           obj.name2 = obj.address
         })
-        console.log(this.sliderList, '-------')
+        console.log(this.venueList, '-------')
       })
     }
+  },
+  onReachBottom (obj) {
+    console.log('监听用户上拉触底事件。', obj)
   }
 }
 </script>
 
-<style>
-.log-list {
-  display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+<style lang="less">
+@import '../../assets/style/variable.less';
+
+.venue{
+  background-color: @bg-color;
+  .top-banner{
+    background: #fff;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+  }
+  .select-venue{
+    margin-top: 20px;
+    padding: 17px 30px;
+    border: 1px solid @border-color;
+    background-color: #fff;
+  }
+  .venue-list{
+    background-color: #fff;
+    padding: 0 30px;
+  }
 }
 
-.log-item {
-  margin: 10rpx;
-}
 </style>

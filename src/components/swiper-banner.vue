@@ -1,14 +1,15 @@
 <template>
-  <div class="swiper-banner">
     <swiper class="swiper-comp" :indicator-dots="indicatorDots"
       :autoplay="autoplay" :interval="interval" :duration="duration">
       <block v-for="(item, index) in imgUrls" :key="index">
         <swiper-item>
-          <img :src="item" class="slide-image" />
+            <div class="for-padding">
+              <img :src="item" class="slide-image" />
+
+            </div>
         </swiper-item>
       </block>
     </swiper>
-  </div>
 </template>
 
 <script>
@@ -31,17 +32,20 @@ export default {
 </script>
 
 <style lang="less">
-.swiper-banner{
-  position: relative;
-  width: 100%;
-  height: auto;
-  padding: 0;
   .swiper-comp{
-    .slide-image{
-      width: 100%;
+    .for-padding{
+      padding: 0 30px;
+      width:100%;
       height: 100%;
+      box-sizing: border-box;
+      .slide-image{
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
     }
+    
   }
-}
 
 </style>

@@ -1,19 +1,15 @@
 <template>
   <div class="select-bar">
-    <div class="left">
-      <img src="" alt="alt">
-      {{text}}
+    <div class="select-bar__left">
+      <img class="flag-img" src="../../assets/img/flag.png" alt="alt">{{text}}
     </div>
-    <div class="right">
-      筛选
-      <img src="" alt="alt">
-    </div>
+    <div class="select-bar__right">{{operation}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['text'],
+  props: ['text', 'operation'],
   data () {
     return {}
   },
@@ -30,12 +26,13 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .left, .right{
+  .select-bar__left, .select-bar__right{
     flex:  0 0 auto;
     font-size: 28px;
-    img{
-      width: 16px;
-      height: 16px;
+    .flag-img{
+      width: 28px;
+      height: 28px;
+      color: #000;
     }
   }
 }

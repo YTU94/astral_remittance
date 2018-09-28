@@ -1,21 +1,21 @@
 <template>
   <div class="rebate">
     <!-- swiper -->
-    <swiper-banner></swiper-banner> 
-    <!-- 热门推荐 -->
-    <slider-banner :imgWidth="100" :imgHeight="100"></slider-banner>
+    <div class="top-banner" >
+      <swiper-banner></swiper-banner>
+    </div>
     <!-- 选择门店 -->
-    <select-bar text="选择门店"></select-bar>
+    <div class="select-venue">
+      <select-bar text="选择门店"></select-bar>
+    </div>
     <!-- 门店列表 -->
-    <div class="venue-list">
-      <div class="venue-item">
-        <div class="item-left">
-          <p class="item-name">1111111</p>
-          <p class="item-offer">22222222</p>
-          <p class="item-address">333333333</p>
-        </div>
-        <div class="item-right">
-          <div class="right-btn" @click="goSubmit">拿返利 > </div>
+    <div class="revate-list">
+      <div class="revate-item">
+        <div class="item-name textOverflow">店1111111111111111111111111111111111111111名</div>
+        <div class="item-offer textOverflow">返利111111111111111111111111111111111111111111111117%</div>
+        <div class="item-line">
+          <p class="item-address textOverflow">dizh1111111111111111111111111111111111111111i</p>
+          <div class="right-btn" @click="goSubmit">拿返利&nbsp;&nbsp;<span>></span></div>
         </div>
       </div>
     </div>
@@ -81,49 +81,82 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '../../assets/style/variable.less';
 
 .rebate{
-  .venue-list{
+  background-color: @bg-color;
+  .top-banner{
+    background: #fff;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+  }
+  .select-venue{
+    margin-top: 20px;
+    padding: 17px 30px;
+    border: 1px solid @border-color;
+    background-color: #fff;
+  }
+  .revate-list{
     position: relative;
     top:0;
     left: 0;
-    padding-left: 20px;
+    padding-left: 30px;
     box-sizing: border-box;
-    .venue-item{
+    background-color: #fff;
+    .revate-item{
       position: relative;
       top: 0;
       left: 0;
       width: 100%;
+      padding: 38px 0 29px;
       border-bottom: 1px solid @border-color;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      .item-left{
-        flex: 1;
-        .item-name{
-          color: @font-color-black;
-          font-size: 40px;
-        }
-        .item-offer{
-          color: red;
-          font-size: 26px;
-        }
-        .item-addres{
+      .item-name{
+        color: #333333;
+        font-size: 30px;
+        padding-right: 30px;
+        box-sizing: border-box;
+      }
+      .item-offer{
+        color: #ED5826;
+        font-size: 24px;
+        padding-right: 30px;
+        box-sizing: border-box;
+      }
+      .item-line{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        .item-address{
+          flex: 1 1 1;
           color: @font-color-gray;
           font-size: 24px;
+          margin-top: 32px;
+          padding-right: 30px;
+          box-sizing: border-box;
         }
-      }
-      .item-right{
-        flex: 0 0 auto;
-        display: inline-block;
-        padding: 5px 20px;
-        margin-right: 20px;
-        border: 1px solid #ccc;
-        font-size: 32px;
-        color: blue;
+        .right-btn{
+          flex: 0 0 auto;
+          height: 50px;
+          line-height: 50px;
+          padding: 0 20px;
+          margin-right: 30px;
+          font-size: 24px;
+          color: #fff;
+          background-color: #2BC68C;
+          border-radius: 25px;
+          span{
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 1;
+            text-align: center;
+            color: #2BC68C;
+            height: auto;
+            border-radius: 12px;
+            background-color: #fff;
+          }
+        }
       }
     }
   }

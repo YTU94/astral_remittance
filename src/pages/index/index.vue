@@ -1,16 +1,31 @@
 <template>
   <div class="home" @click="clickHandle('test click', $event)">
     <!-- 定位 -->
-    <location text="123"></location>
+    <div class="top-location">
+      <location  text="123"></location>
     <!-- slide banner -->
-    <swiper-banner></swiper-banner>
-    <div class="" @click="toAllNews">全部</div>
+    </div>
+    <div class="top-banner" >
+      <swiper-banner></swiper-banner>
+    </div>
+
+    <!-- <div class="" @click="toAllNews">全部</div> -->
     <div class="main-list">
-      <div class="list-item" v-for="(item, index) in mainTipList" :key="index">
-        <div class="for-bg" @click="goTo(item.name)">
-          <p class="title">{{item.name}}</p>
-          <p class="content"></p>
-        </div>
+      <div class="list-item" @click="goTo('找场馆')">
+          <img class="bg-img" src="../../assets/img/venue-bg.png" alt="">
+          <p class="title">找场馆</p>
+      </div>
+      <div class="list-item" @click="goTo('找教练')">
+          <img class="bg-img" src="../../assets/img/coach-bg.png" alt="">
+          <p class="title">找教练</p>
+      </div>
+      <div class="list-item" @click="goTo('找优惠')">
+          <img class="bg-img" src="../../assets/img/coupon-bg.png" alt="">
+          <p class="title">找优惠</p>
+      </div>
+      <div class="list-item" @click="goTo('拿返利')">
+          <img class="bg-img" src="../../assets/img/rebate-bg.png" alt="">
+          <p class="title">拿返利</p>
       </div>
     </div>
     <!-- 热门推荐 -->
@@ -28,12 +43,6 @@ export default {
     return {
       motto: 'Hello World',
       userInfo: {},
-      mainTipList: [
-        {name: '找场馆', value: ''},
-        {name: '找教练', value: ''},
-        {name: '找优惠', value: ''},
-        {name: '拿返利', value: ''}
-      ],
       sliderList: []
     }
   },
@@ -117,23 +126,50 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../../assets/style/variable.less';
 
 .home {
   position: relative;
+  background: @bg-color;
+  .top-location{
+    background: #fff;
+    padding: 0 30px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .top-banner{
+    background: #fff;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+  }
   .main-list{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    padding: 20px;
+    padding: 30px 10px;
     box-sizing: border-box;
+    background: #fff;
+    margin-bottom: 20px;
     .list-item{
       flex: 0 0 50%;
       box-sizing: border-box;
       padding: 20px;
       box-sizing: border-box;
-      .for-bg{
-        border: 1px solid blue;
+      position: relative;
+      top: 0;
+      left: 0;
+      .bg-img{
+        width: 100%;
         height: 176px;
+        display: inline-block;
+      }
+      .title{
+        display: inline-block;
+        position: absolute;
+        top: 56px;
+        left: 55px;
+        color: #fff;
+        line-height: 1;
       }
     }
   }

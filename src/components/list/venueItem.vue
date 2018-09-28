@@ -7,15 +7,15 @@
       <div class="line-name">
         <slot name="title">
           <span class="name-msg">{{venueItem.name}}</span>
-          <img v-if="true" class="name-icon" src="" alt="">
+          <!-- <img v-if="true" class="name-icon" src="" alt=""> -->
         </slot>
       </div>
       <div class="line-address">{{venueItem.address}}</div>
-      <div class="line-star"></div>
+      <div class="line-star">★★★</div>
       <div class="line-distance">
         <slot name="diatance">
           <span class="name-msg">{{venueItem.distance}}</span>
-          <img class="name-icon" src="" alt="">
+          <!-- <img class="name-icon" src="" alt=""> -->
         </slot>
       </div>
     </div>
@@ -54,10 +54,12 @@ export default {
   left: 0;
   width: 100%;
   display: flex;
-  padding-bottom: 20px;
+  padding: 30px 0;
   border-bottom: 1px solid @border-color;
-  margin-bottom: 20px;
   align-items: stretch;
+  &:last-child{
+    border: 0;
+  }
   .left{
     flex:  0 0 auto;
     font-size: 28px;
@@ -81,18 +83,21 @@ export default {
       }
     }
     .line-name{
-      color: #000000;
-      font-size: 36px;
-      font-weight: bold;      
+      color: #333333;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1.6;     
     }
     .line-address{
-      color: @font-color-default;
+      font-size: 24px;
+      color: #999999;
+      line-height: 1.6;     
     }
     .line-star{
-      color: yellow;
+      color: #FFC600;
     }
     .line-distance{
-      font-size: 24px;
+      font-size: 20px;
       color: @font-color-gray;
       position: absolute;
       bottom: 0;

@@ -4,10 +4,10 @@
     <!-- title -->
     <div class="slider-banner__title">
         <div class="title-msg">热门推荐</div>
-        <div class="title-text" @click="guideTo">全部</div>
+        <div class="title-text" @click="guideTo">全部门店</div>
     </div>
     <!-- slide bannber -->
-    <scroll-view  class="slider-banner__slider" scroll-x="true" style="width: 100%; height:200px; white-space:nowrap;">
+    <scroll-view  class="slider-banner__slider" scroll-x="true">
       <view v-if="sliderList" class="slider-item" v-for="(item, index) in sliderList" :key="index">
         <img class="slider-item__img" :src="item.imgUrl" v-bind:style="{width: imgWidth + 'px', height: imgHeight + 'px'}">
         <!-- <img class="slider-item__img" :src="item.imgUrl" :width="imgWidth + 'rpx'" :height="imgHeight + 'rpx'"> -->
@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '../assets/style/variable.less';
 
 .slider-banner{
   position: relative;
@@ -96,17 +97,21 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    padding: 25px 0;
     .title-msg{
-      color: #000000;
-      font-size: 36px;
+      color: #000;
+      font-size: 32px;
     }
     .title-text{
-      color: #363636;
+      color: #999999;
       font-size: 24px;
     }
   }
   .slider-banner__slider{
+    width: 100%;
+    height: auto; 
+    white-space:nowrap;
+    margin: 0 -10px;
     .slider-item{
       display: inline-block;
       width: auto;
@@ -115,13 +120,14 @@ export default {
         border-radius: 10px;
       }
       &__msgOne{
-        color: #000000;
-        font-size: 26px;
+        color: #333333;
+        font-size: 24px;
         margin-top: 10px;
       }
       &__msgTwo{
-        color: #ccc;
-        font-size: 24px;
+        color: #999999;
+        font-size: 20px;
+        margin-bottom: 20px;
       }
     }
   }

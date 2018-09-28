@@ -17,13 +17,22 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "selectedColor": "red",
+    "selectedColor": "#666666",
     "backgroundColor": "#fff",
     "list": [{
       "pagePath": "pages/index/main",
+      "iconPath": "/static/img/home-default.png",
+      "selectedIconPath": "/static/img/home-active.png",
       "text": "首页"
+    },{
+      "pagePath": "pages/newsList/main",
+      "iconPath": "/static/img/news-default.png",
+      "selectedIconPath": "/static/img/news-active.png",
+      "text": "动态"
     }, {
       "pagePath": "pages/person/main",
+      "iconPath": "/static/img/person-default.png",
+      "selectedIconPath": "/static/img/person-active.png",
       "text": "我的"
     }]
   }
