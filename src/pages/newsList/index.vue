@@ -1,13 +1,11 @@
 <template>
   <div class="mews-list">
-    <swiper-banner></swiper-banner> 
+    <div class="top-banner" >
+      <p class="hot">热门推荐</p>
+      <swiper-banner></swiper-banner>
+    </div>
     <div class="list">
       <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj" @guideTo="toNewsInfo"></venue-item>
-    </div>
-
-    <div class="new-item">
-      <img src="" alt="" class="">
-      <div class=""></div>
     </div>
   </div>
 </template>
@@ -43,9 +41,24 @@ export default {
 </script>
 
 <style lang="less">
+@import '../../assets/style/variable.less';
+
 .mews-list{
+  position: relative;
+  background: @bg-color;
+  .top-banner{
+    background: #fff;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+    .hot{
+      font-size: 36px;
+      color: #333333;
+      padding: 0 30px 30px;
+    }
+  }
   .list{
     padding: 20px;
+    background-color: #fff;
   }
 }
 </style>

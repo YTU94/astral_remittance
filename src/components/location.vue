@@ -3,19 +3,13 @@
   <div class="location">
     <span @click="showSeachres = true">
       <!-- <img src="" alt="logo" > -->
-      {{city}}
+      {{curCity}}
     </span>
     <span v-if="showSeachres" @click="showSeachres = false">close</span>
   </div>
   <!-- seach result -->
   <div class="search-res" v-show="showSeachres">
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
-    <div class="res-line">123</div>
+    <div class="res-line" v-for="(city, index) in citiesList" :key="index" @click="selectCity(city)">{{city.name}}</div>
   </div>
 </div>
   
@@ -26,19 +20,21 @@ export default {
   props: ['text'],
   data () {
     return {
-      city: '杭州',
-      region: ['广东省', '广州市', '海珠区'],
+      curCity: '杭州',
+      citiesList: [],
       customItem: '全部',
       showSeachres: false
     }
   },
   mounted () {
+    let that = this
     wx.getLocation({
       type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
         console.log('经纬度', latitude, longitude)
+        that._findCity()
       }
     })
     this.getCityList()
@@ -48,9 +44,19 @@ export default {
       console.log('picker发送选择改变，携带值为', e.mp.detail.value)
       this.region = e.mp.detail.value
     },
+    selectCity (city) {
+      this.curCity = city.name
+      this.showSeachres = false
+      wx.setStorageSync('curCity', {name: city.name, id: city.id})
+    },
     getCityList () {
       this.$http.cities.getCityList({}).then(res => {
-        console.log('cities', res)
+        this.citiesList = res.pageList.list
+      })
+    },
+    _findCity () {
+      this.$http.cities.findCity({}).then(res => {
+        this.citiesList = res.pageList.list
       })
     }
   }
