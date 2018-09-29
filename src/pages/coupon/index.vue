@@ -52,6 +52,7 @@ export default {
       }
       this.$http.coupon.getCouponList(data).then(res => {
         console.log(res)
+        debugger
         this.couponList = res.pageList.list
       })
     },
@@ -61,7 +62,9 @@ export default {
     },
     _collectCoupons (id) {
       this.$http.coupon.collectCoupons({couponId: id}).then(res => {
-        console.log(res)
+        wx.switchTab({
+          url: '../index/main'
+        })
       })
     }
   }

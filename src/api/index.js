@@ -4,6 +4,7 @@ import cities from './cities'
 import company from './company'
 import coach from './coach'
 import store from './store'
+import rebate from './rebate'
 import coupon from './coupon'
 
 export default {
@@ -13,5 +14,6 @@ export default {
   store,
   coach,
   coupon,
+  rebate,
   company
 }

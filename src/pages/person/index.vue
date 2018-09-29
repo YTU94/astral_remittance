@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="person">
     <div class="header">
       <div class="user-msg-card">
         <div class="top">
@@ -19,11 +19,21 @@
         <li class="info-item">我的优惠卷<span class="info-item-content">{{userInformation.idno || '3'}}</span></li>
       </ul>
     </div>
+    <blank-model :showModel="1">
+      <coupon-item v-if="coupons"></coupon-item>
+    </blank-model>
   </div>
 </template>
+
 <script>
+import couponItem from '@/components/list/couponItem'
+import blankModel from '@/components/base/blankModel'
 
 export default {
+  components: {
+    couponItem,
+    blankModel
+  },
   data () {
     return {
       userInfo: {
@@ -40,10 +50,8 @@ export default {
       coupons: null
     }
   },
-  created () {
-    this._getClientCouponList()
-  },
   mounted () {
+    this._getClientCouponList()
   },
   methods: {
     _getClientCouponList () {
@@ -56,71 +64,75 @@ export default {
 </script>
 <style lang="less">
 @import '../../assets/style/variable.less';
-
-.header{
-  position: relative;;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  padding: 40px 40px 20px;
-  box-sizing: border-box;
-  // background-color: @bg-color;
-  .user-msg-card{
-    width: 100%;
-    height: auto;
-    position: relative;
+.person{
+  position: relative;
+  .header{
+    position: relative;;
     top: 0;
     left: 0;
-    padding: 48px 40px 30px;
+    width: 100%;
+    height: auto;
+    padding: 40px 40px 20px;
     box-sizing: border-box;
-    box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    height: 242px;
-    background: #555060;
-    .top{
-      display: flex;
+    // background-color: @bg-color;
+    .user-msg-card{
+      width: 100%;
+      height: auto;
       position: relative;
       top: 0;
       left: 0;
-      justify-content: space-around;
-      align-items: flex-start;
-        
-      .organ-name{
-        flex: 1 1 auto;
-        text-align: left;
-        font-size: 40px!important;
-        font-family:PingFangSC-Medium;
-        color:#fff;
-      }
-      .avatar{
-        flex: 0 0 100px;
-        text-align: right;
-        .avavtao-img{
-          display: inline-block;
-          width: 100px;
-          height: 100px;
-          border-radius: 4px;
+      padding: 48px 40px 30px;
+      box-sizing: border-box;
+      box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      height: 242px;
+      background: #555060;
+      .top{
+        display: flex;
+        position: relative;
+        top: 0;
+        left: 0;
+        justify-content: space-around;
+        align-items: flex-start;
+          
+        .organ-name{
+          flex: 1 1 auto;
+          text-align: left;
+          font-size: 40px!important;
+          font-family:PingFangSC-Medium;
+          color:#fff;
+        }
+        .avatar{
+          flex: 0 0 100px;
+          text-align: right;
+          .avavtao-img{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+          }
         }
       }
     }
   }
+
+  .user{
+    position: relative;;
+    left:0;
+    top:0;
+    width: 100%;
+    box-sizing:border-box;
+    padding:40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
 }
 
-.user{
-  position: relative;;
-  left:0;
-  top:0;
-  width: 100%;
-  box-sizing:border-box;
-  padding:40px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
 
 
 

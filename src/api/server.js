@@ -1,3 +1,4 @@
+
 var Fly = require('flyio/dist/npm/wx')
 var fly = new Fly()
 fly.config.baseURL = 'http://47.92.217.9:9090'
@@ -25,16 +26,17 @@ fly.interceptors.response.use(
       return response.data
     } else {
       wx.showToast({
-        title: response.data.messages,
+        title: typeof (response.data.messages) === 'string' ? response.data.messages : '系统出错',
         icon: 'none',
         duration: 1000
       })
+      return Promise.reject(response)
     }
   },
   (error) => {
     console.log(error)
     // 发生网络错误后会走到这里
-    return Promise.resolve('ssss')
+    return Promise.reject(error)
   }
 )
 
@@ -43,4 +45,21 @@ fly.interceptors.response.use(
 //   return config
 // })
 
-export default fly
+export default function flyio (url, params, config) {
+  return new Promise((resolve, reject) => {
+    fly.request(url, params, config).then((response) => {
+      debugger
+      if (response.success) {
+        resolve(response)
+      } else {
+        wx.showToast({
+          title: typeof (response.messages) === 'string' ? response.messages : '系统出错',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    }, (err) => {
+      reject(err)
+    })
+  })
+}

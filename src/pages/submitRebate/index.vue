@@ -23,7 +23,7 @@
       
       <div class="order-line">
         <span class="order-line__name">可用优惠</span>
-        <span class="order-line__rebate">1张可用></span>
+        <span class="order-line__rebate">{{clientCouponList.length}}张可用></span>
       </div>
       <div class="order-line">
         <div class="order-line__name">消费金额</div>
@@ -34,7 +34,6 @@
       </div>
     </div>
     
-
     <!-- img input priview-->
     <div class="order-content">
       <div class="order-line">
@@ -50,7 +49,7 @@
     <!-- footer operation -->
     <div class="footer">
       <div class="footer-label">¥980</div>
-      <div class="footer-btn">确认递交</div>
+      <div class="footer-btn" @click="submitRebate">确认递交</div>
     </div>
   </div>
 </template>
@@ -77,7 +76,7 @@ export default {
         discount: ''
       },
       imgUrl: null,
-      logs: []
+      clientCouponList: []
     }
   },
   created () {
@@ -91,6 +90,7 @@ export default {
   },
   mounted () {
     console.log(this.store, 'store')
+    this._getClientCouponList()
   },
   methods: {
     selectImg () {
@@ -105,6 +105,34 @@ export default {
           that.imgUrl = tempFilePaths[0]
           console.log('tempFilePaths', tempFilePaths)
         }
+      })
+    },
+    submitRebate () {
+      this._submitRebate(this.store.id, '', '', '')
+    },
+    // 获取用户的优惠卷
+    _getClientCouponList () {
+      const data = {}
+      this.$http.coupon.getClientCouponList(data).then(res => {
+        console.log(res)
+        this.clientCouponList = res.pageList.list
+      })
+    },
+    _submitRebate (storeId, couponId, consumeMoney, returnMoney) {
+      const data = {
+        storeId,
+        couponId,
+        consumeMoney,
+        returnMoney
+      }
+      this.$http.rebate.submitRebate(data).then(res => {
+        console.log(res)
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success', // loading
+          duration: 1500,
+          mask: true
+        })
       })
     }
   }
