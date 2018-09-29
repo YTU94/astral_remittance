@@ -42,7 +42,6 @@
       </div>
       <div class="order-line line-height-auto" style="height:auto;">
         <img v-if="imgUrl" :src="imgUrl" alt="" class="order-line__img" @click="selectImg">
-
         <div v-else class="order-line__img"  @click="selectImg">
           选择图片
         </div>
@@ -57,8 +56,6 @@
 </template>
 
 <script>
-// import { formatTime } from '@/utils/index'
-import card from '@/components/card'
 import selectBar from '@/components/base/selectBar'
 import swiperBanner from '@/components/swiper-banner'
 import sliderBanner from '@/components/slider-banner'
@@ -66,7 +63,6 @@ import venueItem from '@/components/list/venueItem'
 
 export default {
   components: {
-    card,
     selectBar,
     swiperBanner,
     sliderBanner,

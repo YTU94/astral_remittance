@@ -1,15 +1,14 @@
 <script>
 export default {
   created () {
+    let that = this
     // 调用API从本地缓存中获取数据
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
     console.log('app created and cache logs by setStorageSync')
-  },
-  mounted () {
-    let that = this
+
     wx.login({
       success: function (res) {
         that.$http.user.login({code: res.code}).then(res => {
