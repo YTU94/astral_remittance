@@ -65,7 +65,6 @@ export default {
       this.$http.store.getStoreList({isHot: true}).then(res => {
         this.sliderList = res.pageList.list
         this.sliderList.forEach(obj => {
-          obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
           obj.name1 = obj.name
           obj.name2 = obj.address
         })

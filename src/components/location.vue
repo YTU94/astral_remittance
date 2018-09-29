@@ -1,11 +1,13 @@
 <template>
 <div>
   <div class="location">
-    <span @click="showSeachres = true">
-      <!-- <img src="" alt="logo" > -->
+    <span class="location-msg" @click="showSeachres = !showSeachres">
       {{curCity}}
+      <img class="triangle-icon" src="../assets/img/triangle-icon.png" mode="widthFix"   alt="logo" >
     </span>
-    <span v-if="showSeachres" @click="showSeachres = false">close</span>
+    <span class="location-close" v-if="showSeachres" @click="showSeachres = false">
+      <img class="close-icon" src="../assets/img/close-icon.png" mode="widthFix"   alt="logo" >
+    </span>
   </div>
   <!-- seach result -->
   <div class="search-res" v-show="showSeachres">
@@ -89,6 +91,20 @@ export default {
   box-sizing: border-box;
   font-size: 24px;
   justify-content: space-between;
+  .location-msg{
+    .triangle-icon{
+      width: 12px;
+      position: relative;
+      top: -4px;
+    }
+  }
+  .location-close{
+      padding: 0 0 0 10px;
+    .close-icon{
+      width: 18px;
+    }
+  }
+  
 }
 .search-res{
     position: absolute;

@@ -5,16 +5,15 @@
       <swiper-banner></swiper-banner>
     </div>
 
-    <h2>金牌教练</h2>
-
+    <!-- <h2>金牌教练</h2>
     <scroll-view  class="best-coach-list" scroll-x="true" style="width: 100%; height:200px; white-space:nowrap;">
       <view v-if="sliderList" class="slider-item" v-for="(item, index) in sliderList" :key="index">
         <img class="slider-item__img" :src="item.imgUrl" v-bind:style="{width: imgWidth + 'px', height: imgHeight + 'px'}">
-        <!-- <img class="slider-item__img" :src="item.imgUrl" :width="imgWidth + 'rpx'" :height="imgHeight + 'rpx'"> -->
         <p class="slider-item__msgOne">{{item.name1}}</p>
         <p class="slider-item__msgTwo">{{item.name2}}</p>
       </view>
-    </scroll-view>
+    </scroll-view> -->
+
     <!-- 选择门店 -->
     <div class="filter-coach">
       <select-bar text="选择门店"></select-bar>

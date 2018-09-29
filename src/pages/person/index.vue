@@ -14,14 +14,20 @@
     </div>
     <div class="user">
       <ul class="info">
-        <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || '1'}}</span></li>
-        <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || '2'}}</span></li>
-        <li class="info-item">我的优惠卷<span class="info-item-content">{{userInformation.idno || '3'}}</span></li>
+        <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || ' '}}</span></li>
+        <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || ' '}}</span></li>
+        <li class="info-item" @click="showCouponModel = true">
+          我的优惠卷
+          <span class="info-item-content" v-if="couponList && couponList.length > 0" >{{couponList.length || '0'}}</span>
+        </li>
       </ul>
     </div>
-    <blank-model :showModel="1">
-      <coupon-item v-if="coupons"></coupon-item>
-    </blank-model>
+
+    <div class="blank-model" v-show="showCouponModel">
+      <img class="close-icon" @click="closeModel" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in couponList" :key="index"></coupon-item>
+    </div>
+
   </div>
 </template>
 
@@ -47,16 +53,20 @@ export default {
         idno: '',
         phone: ''
       },
-      coupons: null
+      couponList: null,
+      showCouponModel: false
     }
   },
   mounted () {
     this._getClientCouponList()
   },
   methods: {
+    closeModel () {
+      this.showCouponModel = false
+    },
     _getClientCouponList () {
       this.$http.coupon.getClientCouponList({}).then(res => {
-        this.coupons = res
+        this.couponList = res.pageList.list
       })
     }
   }
@@ -130,7 +140,22 @@ export default {
     width: 100%;
     justify-content: space-between;
   }
-
+  .blank-model{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 10001;
+    .close-icon{
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      width: 20px;
+    }
+  }
 }
 
 

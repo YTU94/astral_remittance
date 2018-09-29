@@ -1,5 +1,7 @@
 <template>
-    <swiper class="swiper-comp" :indicator-dots="indicatorDots"
+    <swiper class="swiper-comp" 
+      :indicator-dots="indicatorDots"
+      indicator-active-color="#fff"
       :autoplay="autoplay" :interval="interval" :duration="duration">
       <block v-for="(item, index) in imgUrls" :key="index">
         <swiper-item>
@@ -22,7 +24,7 @@ export default {
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
         'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
       ],
-      indicatorDots: true,
+      indicatorDots: false,
       autoplay: true,
       interval: 5000,
       duration: 1000

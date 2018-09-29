@@ -5,8 +5,8 @@
       <img class="coupone-item__img" src="../../assets/img/coupons-bg.png" alt="" mode="widthFix">
       <div class="coupone-item__c">
         <div class="item-line">
-          <div class="line-left coupon-price">
-            {{coupon.content}}
+          <div class="line-left coupon-price" v-if="coupon.contentList && coupon.contentList.length > 0">
+            满{{coupon.contentList[0]}}减{{coupon.contentList[1]}}
           </div>
           <div class="line-right coupon-btn" @click="collectCoupons(coupon.id)">领取</div>
         </div>
@@ -15,7 +15,7 @@
             使用范围：{{coupon.couponApplyScope}}
           </div>
           <div class="line-right effective-date">
-            有效日期：{{1537892636000}}
+            有效日期：{{coupon.eTime}}
           </div>
         </div>
       </div>
@@ -51,8 +51,10 @@ export default {
         pageSize: 10
       }
       this.$http.coupon.getCouponList(data).then(res => {
-        console.log(res)
-        debugger
+        res.pageList.list.map(e => {
+          console.log(e)
+          e.eTime = formatTime(e.effectTime)
+        })
         this.couponList = res.pageList.list
       })
     },
@@ -62,9 +64,17 @@ export default {
     },
     _collectCoupons (id) {
       this.$http.coupon.collectCoupons({couponId: id}).then(res => {
-        wx.switchTab({
-          url: '../index/main'
+        wx.showToast({
+          title: '领取成功',
+          content: '你已成功领取优惠券',
+          icon: 'success',
+          mask: true
         })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '../index/main'
+          })
+        }, 1500)
       })
     }
   }

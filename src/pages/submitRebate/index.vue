@@ -28,8 +28,9 @@
       <div class="order-line">
         <div class="order-line__name">消费金额</div>
         <div class="order-line__rebate">
-          <input type="text" class="line-priceInput" style="text-align:right;" placeholder="请输入金额">
-          <div class="line-close"></div>
+          <input type="digit" class="line-priceInput" @input="inputPrice" style="text-align:right;" v-model="consumeMoney" placeholder="请输入金额" auto-focus/>
+          <!-- <input type="text"  @input="inputPrice"  placeholder=""> -->
+          <!-- <div class="line-close"></div> -->
         </div>
       </div>
     </div>
@@ -48,7 +49,7 @@
     </div>
     <!-- footer operation -->
     <div class="footer">
-      <div class="footer-label">¥980</div>
+      <div class="footer-label">¥{{returnMoney}}</div>
       <div class="footer-btn" @click="submitRebate">确认递交</div>
     </div>
   </div>
@@ -73,10 +74,17 @@ export default {
       store: {
         id: '',
         name: '',
-        discount: ''
+        discount: '',
+        attachment: '' // 附件 img
       },
+      consumeMoney: '', // 消费金额
       imgUrl: null,
       clientCouponList: []
+    }
+  },
+  computed: {
+    returnMoney () {
+      return this.consumeMoney - 1
     }
   },
   created () {
@@ -93,6 +101,10 @@ export default {
     this._getClientCouponList()
   },
   methods: {
+    inputPrice (v) {
+      console.log(v.target.value, this.returnMoney)
+      this.checkConpon(v.target.value)
+    },
     selectImg () {
       let that = this
       wx.chooseImage({
@@ -104,26 +116,48 @@ export default {
           var tempFilePaths = res.tempFilePaths
           that.imgUrl = tempFilePaths[0]
           console.log('tempFilePaths', tempFilePaths)
+          wx.uploadFile({
+            url: 'http://192.168.0.106:9090/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            formData: {},
+            success (res) {
+              const data = res.data
+              // do something
+              that.attachment = JSON.parse(data).vo
+            }
+          })
+          // that._uploadImage(tempFilePaths)
         }
       })
     },
     submitRebate () {
-      this._submitRebate(this.store.id, '', '', '')
+      this._submitRebate(this.store.id, '', '', '', this.attachment)
+    },
+    _uploadImage (imgUrl) {
+      this.$http.rebate.uploadImage({imgUrl}).then(res => {
+        console.log(res)
+      })
     },
     // 获取用户的优惠卷
     _getClientCouponList () {
-      const data = {}
+      const data = {
+        isUsed: false,
+        available: true
+      }
       this.$http.coupon.getClientCouponList(data).then(res => {
         console.log(res)
         this.clientCouponList = res.pageList.list
       })
     },
-    _submitRebate (storeId, couponId, consumeMoney, returnMoney) {
+    // 提交返利
+    _submitRebate (storeId, couponId, consumeMoney, returnMoney, attachment) {
       const data = {
         storeId,
         couponId,
         consumeMoney,
-        returnMoney
+        returnMoney,
+        attachment
       }
       this.$http.rebate.submitRebate(data).then(res => {
         console.log(res)
@@ -134,7 +168,9 @@ export default {
           mask: true
         })
       })
-    }
+    },
+    // 计算优惠券后的金额
+    checkConpon (v) {}
   }
 }
 </script>

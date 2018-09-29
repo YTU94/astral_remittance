@@ -1,6 +1,6 @@
 <template>
-  <div class="blank-model" v-show="!show">
-    <div class="close-icon" @click="show = false">X</div>
+  <div class="blank-model" v-show="showModel">
+    <img class="close-icon" @click="closeModel" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
     <slot></slot>
   </div>
 </template>
@@ -16,6 +16,11 @@ export default {
     return {
       show: this.showModel
     }
+  },
+  methods: {
+    closeModel () {
+      this.$emit('closeModel', '')
+    }
   }
 }
 </script>
@@ -30,6 +35,12 @@ export default {
   width: 100%;
   background: #fff;
   z-index: 10001;
+  .close-icon{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 20px;
+  }
 }
 </style>
 
