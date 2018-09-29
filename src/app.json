@@ -7,8 +7,8 @@
     "pages/person/main",
     "pages/rebate/main",
     "pages/coach/main",
-    "pages/venue/main",
-    "pages/coupon/main"
+    "pages/coupon/main",
+    "pages/venue/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

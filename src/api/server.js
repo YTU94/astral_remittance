@@ -6,7 +6,7 @@ fly.config.baseURL = 'http://47.92.217.9:9090'
 fly.interceptors.request.use((request) => {
   // 给所有请求添加自定义header
   request.headers['X-Tag'] = 'flyio'
-  request.headers['third-session'] = 'third-session'
+  request.headers['third-session'] = wx.getStorageSync('thirdSession') || ''
   // 打印出请求体
   console.log(request.body)
   // 终止请求

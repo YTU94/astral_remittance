@@ -27,14 +27,14 @@ export default {
     }
   },
   mounted () {
-    let that = this
+    // let that = this
     wx.getLocation({
       type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
         console.log('经纬度', latitude, longitude)
-        that._findCity()
+        // that._findCity(longitude, latitude)
       }
     })
     this.getCityList()
@@ -54,9 +54,25 @@ export default {
         this.citiesList = res.pageList.list
       })
     },
-    _findCity () {
-      this.$http.cities.findCity({}).then(res => {
-        this.citiesList = res.pageList.list
+    _findCity (longitude, latitude) {
+      let that = this
+      const data = {
+        longitude,
+        latitude
+      }
+      this.$http.cities.findCity(data).then(res => {
+        if (res.vo.name) {
+          wx.showModal({
+            title: '城市定位',
+            content: `当前城市定位为${res.vo.name}，是否需要切换至该城市`,
+            success: function () {
+              that.curCity = res.vo.name
+            },
+            fail: function (err) {
+              console.log(err)
+            }
+          })
+        }
       })
     }
   }

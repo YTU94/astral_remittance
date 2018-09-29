@@ -12,9 +12,8 @@ export default {
     let that = this
     wx.login({
       success: function (res) {
-        console.log(res, 'login res')
         that.$http.user.login({code: res.code}).then(res => {
-          console.log(res)
+          wx.setStorageSync('thirdSession', res.vo)
         })
       }
     })

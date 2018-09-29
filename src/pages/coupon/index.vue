@@ -60,7 +60,6 @@ export default {
       this._collectCoupons(id)
     },
     _collectCoupons (id) {
-      debugger
       this.$http.coupon.collectCoupons({couponId: id}).then(res => {
         console.log(res)
       })

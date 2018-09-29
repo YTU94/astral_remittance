@@ -41,7 +41,7 @@
         <span class="order-line__name">上传病症</span>
       </div>
       <div class="order-line line-height-auto" style="height:auto;">
-        <img v-if="imgUrl" :src="imgUrl" alt="" class="order-line__img">
+        <img v-if="imgUrl" :src="imgUrl" alt="" class="order-line__img" @click="selectImg">
 
         <div v-else class="order-line__img"  @click="selectImg">
           选择图片
@@ -76,21 +76,24 @@ export default {
   data () {
     return {
       store: {
-        id: this.$mp.query.id,
-        name: this.$mp.query.name,
-        discount: this.$mp.query.discount
+        id: '',
+        name: '',
+        discount: ''
       },
       imgUrl: null,
       logs: []
     }
   },
-
   created () {
     // const logs = (wx.getStorageSync('logs') || [])
     // this.logs = logs.map(log => formatTime(new Date(log)))
   },
+  beforeMount () {
+    this.store.id = this.$mp.query.id
+    this.store.name = this.$mp.query.name
+    this.store.discount = this.$mp.query.id
+  },
   mounted () {
-    debugger
     console.log(this.store, 'store')
   },
   methods: {

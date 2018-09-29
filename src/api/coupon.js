@@ -11,5 +11,11 @@ export default {
     return fly.request('/rest/clientCoupon/receiveCoupon', params, {
       method: 'POST'
     })
+  },
+  // 获取客户优惠券
+  getClientCouponList: function (params) {
+    return fly.request('/rest/clientCoupon/listPagination', params, {
+      method: 'POST'
+    })
   }
 }
