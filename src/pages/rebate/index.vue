@@ -15,7 +15,7 @@
         <div class="item-offer textOverflow">返利{{store.discount}}</div>
         <div class="item-line">
           <p class="item-address textOverflow">{{store.address}}</p>
-          <div class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></div>
+          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></button>
         </div>
       </div>
     </div>
@@ -66,6 +66,11 @@ export default {
     },
     init () {
       this._getStoreList()
+    },
+    getPhoneNumber (e) {
+      console.log(e.detail.errMsg)
+      console.log(e.detail.iv)
+      console.log(e.detail.encryptedData)
     },
     _getStoreList () {
       this.$http.store.getStoreList({}).then(res => {

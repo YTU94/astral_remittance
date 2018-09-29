@@ -12,7 +12,7 @@
         </div>
         <div class="item-line">
           <div class="line-left use-range">
-            使用范围：{{coupon.couponApplyScope}}
+            使用范围：{{coupon.applyScopeContent}}
           </div>
           <div class="line-right effective-date">
             有效日期：{{coupon.eTime}}

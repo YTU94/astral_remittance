@@ -1,7 +1,7 @@
 
 var Fly = require('flyio/dist/npm/wx')
 var fly = new Fly()
-fly.config.baseURL = 'http://192.168.0.106:9090'
+fly.config.baseURL = 'http://47.92.217.9:9090'
 
 // 添加请求拦截器
 fly.interceptors.request.use((request) => {
