@@ -15,7 +15,7 @@
         <div class="item-offer textOverflow">返利{{store.discount}}</div>
         <div class="item-line">
           <p class="item-address textOverflow">{{store.address}}</p>
-          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></button>
+          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber(store)" class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></button>
         </div>
       </div>
     </div>
@@ -60,17 +60,16 @@ export default {
   },
   methods: {
     goSubmit (store) {
-      wx.navigateTo({
-        url: `./../submitRebate/main?id=${store.id}&name=${store.name}&discount=${store.discount}`
-      })
+      this.curStore = store
     },
     init () {
       this._getStoreList()
     },
     getPhoneNumber (e) {
-      console.log(e.detail.errMsg)
-      console.log(e.detail.iv)
-      console.log(e.detail.encryptedData)
+      console.log(e.detail)
+      wx.navigateTo({
+        url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discount}`
+      })
     },
     _getStoreList () {
       this.$http.store.getStoreList({}).then(res => {

@@ -2,19 +2,19 @@
     <!-- 优惠券列表 -->
     <div class="coupon-item">
       <img class="coupone-item__img" src="../../assets/img/coupons-bg.png" alt="" mode="widthFix">
-      <div class="coupone-item__c">
+      <div class="coupone-item__c" v-if="couponItem">
         <div class="item-line">
           <div class="line-left coupon-price">
             {{couponItem.content}}
           </div>
-          <div class="line-right coupon-btn" @click="collectCoupons(couponItem.id)">领取</div>
+          <div class="line-right coupon-btn" v-if="couponItem.opreation" @click="collectCoupons(couponItem)">{{couponItem.operation}}</div>
         </div>
         <div class="item-line">
           <div class="line-left use-range">
-            使用范围：{{couponItem.couponApplyScope}}
+            使用范围：{{couponItem.couponApplyScope || ''}}
           </div>
           <div class="line-right effective-date">
-            有效日期：{{1537892636000}}
+            有效日期：{{couponItem.eTime || ''}}
           </div>
         </div>
       </div>
@@ -38,10 +38,13 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    // this.init()
   },
   methods: {
     // 领取优惠券
+    collectCoupons (obj) {
+      this.$emit('operateCoupons', obj)
+    }
   }
 }
 </script>

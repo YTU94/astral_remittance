@@ -24,8 +24,8 @@
     </div>
 
     <div class="blank-model" v-show="showCouponModel">
-      <img class="close-icon" @click="closeModel" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
-      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in couponList" :key="index"></coupon-item>
+      <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in clientCouponList" :key="index"></coupon-item>
     </div>
 
   </div>
@@ -57,13 +57,17 @@ export default {
       showCouponModel: false
     }
   },
+  created () {
+    console.log('created---------->')
+  },
   mounted () {
+    console.log('mounted---------->')
+  },
+  onShow () {
+    console.log('Onshow---------->')
     this._getClientCouponList()
   },
   methods: {
-    closeModel () {
-      this.showCouponModel = false
-    },
     _getClientCouponList () {
       this.$http.coupon.getClientCouponList({}).then(res => {
         this.couponList = res.pageList.list
@@ -149,6 +153,8 @@ export default {
     width: 100%;
     background: #fff;
     z-index: 10001;
+    padding:60px 30px 30px;
+    box-sizing: border-box;
     .close-icon{
       position: absolute;
       top: 30px;
@@ -177,9 +183,9 @@ export default {
       font-size:28rpx;
       color: @font-color-gray;
     }
-    &:last-child{
-      border-bottom:0rpx;
-    }
+    // &:last-child{
+    //   border-bottom:0rpx;
+    // }
   }
 }
 </style>

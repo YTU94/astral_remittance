@@ -2,15 +2,14 @@
   <div class="rebate-order">
     <!-- 选择门店 -->
     <!-- <select-bar text="选择门店"></select-bar> -->
+
     <!-- name && rebate -->
     <div class="order-content">
       <div class="order-line order-line__select">
         <span class="order-line__name ">选择门店</span>
-        <!-- <span class="order-line__rebate">返利7%</span> -->
       </div>
       <div class="order-line">
         <span class="order-line__name">{{store.name}}</span>
-        <!-- <span class="order-line__rebate">返利7%</span> -->
       </div>
     </div>
     
@@ -23,7 +22,9 @@
       
       <div class="order-line">
         <span class="order-line__name">可用优惠</span>
-        <span class="order-line__rebate">{{clientCouponList.length}}张可用></span>
+        <span class="order-line__rebate coupon-canUesd" @click="showCouponModel=!showCouponModel">
+          <img class="order-line__rebate-icon" src="../../assets/img/coupon-icon.png" alt="" mode="widthFix">&nbsp;{{couponList.length}}张可用
+        </span>
       </div>
       <div class="order-line">
         <div class="order-line__name">消费金额</div>
@@ -52,25 +53,35 @@
       <div class="footer-label">¥{{returnMoney}}</div>
       <div class="footer-btn" @click="submitRebate">确认递交</div>
     </div>
+    <!-- coupon model -->
+    <div class="blank-model" v-show="showCouponModel">
+      <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
+    </div>
+
   </div>
 </template>
 
 <script>
+import { formatTime } from '@/utils/index'
 import selectBar from '@/components/base/selectBar'
 import swiperBanner from '@/components/swiper-banner'
 import sliderBanner from '@/components/slider-banner'
 import venueItem from '@/components/list/venueItem'
+import couponItem from '@/components/list/couponItem'
 
 export default {
   components: {
     selectBar,
     swiperBanner,
     sliderBanner,
-    venueItem
+    venueItem,
+    couponItem
   },
 
   data () {
     return {
+      showCouponModel: false,
       store: {
         id: '',
         name: '',
@@ -79,7 +90,8 @@ export default {
       },
       consumeMoney: '', // 消费金额
       imgUrl: null,
-      clientCouponList: []
+      couponList: [],
+      curSelectCoupon: null // 当前选中优惠
     }
   },
   computed: {
@@ -98,6 +110,8 @@ export default {
   },
   mounted () {
     console.log(this.store, 'store')
+  },
+  onShow () {
     this._getClientCouponList()
   },
   methods: {
@@ -134,6 +148,9 @@ export default {
     submitRebate () {
       this._submitRebate(this.store.id, '', '', '', this.attachment)
     },
+    operateCoupons (obj) {
+      console.log('操作 coupon', obj)
+    },
     _uploadImage (imgUrl) {
       this.$http.rebate.uploadImage({imgUrl}).then(res => {
         console.log(res)
@@ -147,7 +164,12 @@ export default {
       }
       this.$http.coupon.getClientCouponList(data).then(res => {
         console.log(res)
-        this.clientCouponList = res.pageList.list
+        res.pageList.list.map(e => {
+          console.log(e)
+          e.eTime = formatTime(e.effectTime)
+          e.operation = '使用'
+        })
+        this.couponList = res.pageList.list
       })
     },
     // 提交返利
@@ -202,9 +224,22 @@ export default {
         flex: 0 0 auto;
         font-size: inherit;
         color: inherit;
+        &-icon{
+          width: 24px;
+          height: auto;
+          position: relative;
+          top: 2px;
+        }
       }
       .color-gold{
         color: #ED5826;
+      }
+      .coupon-canUesd{
+        background: linear-gradient(to right, red, #ED5826);
+        color: #fff;
+        font-size: 24px;
+        padding: 5px 10px;
+        border-radius: 5px;
       }
       .line-height-auto{
         height: auto!important;
@@ -254,6 +289,25 @@ export default {
       display: flex;
       align-items: center;
       line-height: 1;
+    }
+  }
+
+  .blank-model{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 10001;
+    padding:60px 30px 30px;
+    box-sizing: border-box;
+    .close-icon{
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      width: 20px;
     }
   }
 }
