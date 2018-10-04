@@ -7,7 +7,7 @@
     </div>
 
     <div class="info-img">
-      <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="">
+      <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="widthFix">
     </div>
 
     <div class="info-msg">{{newsInfo.text}}</div>
@@ -76,9 +76,12 @@ export default {
   .info-img{
     width: 100%;
     height: 200px;
-    border: 1px solid red;
     margin-bottom: 30px;
     overflow: hidden;
+    img{
+      width: 100%;
+      height: auto;
+    }
   }
   .info-text{
     font-size: 28px;

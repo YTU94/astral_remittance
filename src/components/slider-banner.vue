@@ -20,58 +20,58 @@
 </template>
 
 <script>
-export default {
-  props: {
-    text: '',
-    imgWidth: {
-      default: 100
-    },
-    imgHeight: {
-      default: 100
-    },
-    sliderList: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data () {
-    return {
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 1000,
-      // slider
-      toView: 'red',
-      scrollTop: 100,
-      order: ['red', 'yellow', 'blue', 'green', 'red']
-    }
-  },
-  methods: {
-    upper (e) {
-      console.log(e)
-    },
-    lower (e) {
-      console.log(e)
-    },
-    scroll (e) {
-      console.log(e)
-    },
-    tap (e) {
-      for (var i = 0; i < this.order.length; ++i) {
-        if (this.order[i] === this.toView) {
-          this.toView = this.order[i + 1]
-          break
-        }
+  export default {
+    props: {
+      text: '',
+      imgWidth: {
+        default: 100
+      },
+      imgHeight: {
+        default: 100
+      },
+      sliderList: {
+        type: Array,
+        default: () => []
       }
     },
-    tapMove (e) {
-      this.scrollTop = this.scrollTop + 10
+    data () {
+      return {
+        indicatorDots: true,
+        autoplay: true,
+        interval: 5000,
+        duration: 1000,
+        // slider
+        toView: 'red',
+        scrollTop: 100,
+        order: ['red', 'yellow', 'blue', 'green', 'red']
+      }
     },
-    guideTo () {
-      this.$emit('guideTo', {})
+    methods: {
+      upper (e) {
+        console.log(e)
+      },
+      lower (e) {
+        console.log(e)
+      },
+      scroll (e) {
+        console.log(e)
+      },
+      tap (e) {
+        for (var i = 0; i < this.order.length; ++i) {
+          if (this.order[i] === this.toView) {
+            this.toView = this.order[i + 1]
+            break
+          }
+        }
+      },
+      tapMove (e) {
+        this.scrollTop = this.scrollTop + 10
+      },
+      guideTo () {
+        this.$emit('guideTo', {})
+      }
     }
   }
-}
 </script>
 
 <style lang="less">

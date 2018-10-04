@@ -62,13 +62,17 @@ export default {
   },
   methods: {
     init () {
-      this.$http.store.getStoreList({isHot: true}).then(res => {
+      const data = {
+        pageSize: 2,
+        pageNumber: 1,
+        isHot: true
+      }
+      this.$http.store.getStoreList(data).then(res => {
         this.sliderList = res.pageList.list
         this.sliderList.forEach(obj => {
           obj.name1 = obj.name
           obj.name2 = obj.address
         })
-        console.log(this.sliderList, '-------')
       })
     },
     goTo (name) {
@@ -94,10 +98,6 @@ export default {
       wx.navigateTo({
         url: './../venue/main'
       })
-    },
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
     },
     getUserInfo () {
       // 调用登录接口

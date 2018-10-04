@@ -25,13 +25,15 @@
 
     <div class="blank-model" v-show="showCouponModel">
       <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
-      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in clientCouponList" :key="index"></coupon-item>
+      <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index"></coupon-item>
     </div>
 
   </div>
 </template>
 
 <script>
+import { formatTime } from '@/utils/index'
+
 import couponItem from '@/components/list/couponItem'
 import blankModel from '@/components/base/blankModel'
 
@@ -53,7 +55,7 @@ export default {
         idno: '',
         phone: ''
       },
-      couponList: null,
+      couponList: [],
       showCouponModel: false
     }
   },
@@ -70,6 +72,11 @@ export default {
   methods: {
     _getClientCouponList () {
       this.$http.coupon.getClientCouponList({}).then(res => {
+        res.pageList.list.forEach(e => {
+          if (e.hasOwnProperty('couponVo')) {
+            e.couponVo.eTime = formatTime(e.couponVo.effectTime)
+          }
+        })
         this.couponList = res.pageList.list
       })
     }

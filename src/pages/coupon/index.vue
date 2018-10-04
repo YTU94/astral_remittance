@@ -29,7 +29,6 @@ import { formatTime } from '@/utils/index'
 
 export default {
   components: {},
-
   data () {
     return {
       logs: [],
@@ -52,7 +51,6 @@ export default {
       }
       this.$http.coupon.getCouponList(data).then(res => {
         res.pageList.list.map(e => {
-          console.log(e)
           e.eTime = formatTime(e.effectTime)
         })
         this.couponList = res.pageList.list

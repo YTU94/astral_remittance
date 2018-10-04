@@ -4,14 +4,17 @@
       <img class="coupone-item__img" src="../../assets/img/coupons-bg.png" alt="" mode="widthFix">
       <div class="coupone-item__c" v-if="couponItem">
         <div class="item-line">
-          <div class="line-left coupon-price">
+          <!-- <div class="line-left coupon-price">
             {{couponItem.content}}
+          </div> -->
+          <div class="line-left coupon-price" v-if="couponItem.contentList && couponItem.contentList.length > 0">
+            满{{couponItem.contentList[0]}}减{{couponItem.contentList[1]}}
           </div>
-          <div class="line-right coupon-btn" v-if="couponItem.opreation" @click="collectCoupons(couponItem)">{{couponItem.operation}}</div>
+          <div class="line-right coupon-btn" v-if="couponItem.operation" @click="collectCoupons(couponItem)">{{couponItem.operation}}</div>
         </div>
         <div class="item-line">
           <div class="line-left use-range">
-            使用范围：{{couponItem.couponApplyScope || ''}}
+            使用范围：{{couponItem.applyScopeContent || ''}}
           </div>
           <div class="line-right effective-date">
             有效日期：{{couponItem.eTime || ''}}

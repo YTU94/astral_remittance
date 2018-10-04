@@ -22,11 +22,32 @@ export default {
   data () {
     return {
       venueList: [
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'}
+        {
+          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: 'title',
+          address: 'asd',
+          distance: '2018-10-12'
+        },
+        {
+          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: 'title',
+          address: 'asd',
+          distance: '2018-10-12'},
+        {
+          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: 'title',
+          address: 'asd',
+          distance: '2018-10-12'},
+        {
+          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: 'title',
+          address: 'asd',
+          distance: '2018-10-12'},
+        {
+          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+          name: 'title',
+          address: 'asd',
+          distance: '2018-10-12'}
       ]
     }
   },

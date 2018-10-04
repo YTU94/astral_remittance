@@ -7,8 +7,10 @@
       <div class="line-name">
           {{coachItem.name}}
       </div>
-      <div class="line-star"><span class="star">★★★</span> / 累计上课{{}}节</div>
-      <div class="line-info">{{coachItem.info}}</div>
+      <div class="line-star">
+        <span class="star" v-for="(item, index) in coachItem.starLevel" :key="index">★</span>
+         / 累计上课{{}}节</div>
+      <div class="line-info" v-if="coachItem.speciality">{{coachItem.speciality}}</div>
 
       <div class="line-tag">
           <span class="tag-item" v-for="(tag, index) in coachItem.tags" :key="index">{{tag}}</span>
@@ -70,6 +72,9 @@ export default {
     .line-star{
       color: @font-color-gray;
       font-size: 20px;
+      .star{
+        color: #FFC600;
+      }
     }
     .line-info{
       color: @font-color-default;

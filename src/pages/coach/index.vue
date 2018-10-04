@@ -2,7 +2,7 @@
   <div class="coach">
     <!-- swiper -->
     <div class="top-banner">
-      <swiper-banner></swiper-banner>
+      <swiper-banner :swiperList="swiperList"></swiper-banner>
     </div>
 
     <!-- <h2>金牌教练</h2>
@@ -16,7 +16,7 @@
 
     <!-- 选择门店 -->
     <div class="filter-coach">
-      <select-bar text="选择门店"></select-bar>
+      <select-bar text="全部教练"></select-bar>
     </div>
 
     <!-- coach list -->
@@ -41,7 +41,10 @@ export default {
   },
   data () {
     return {
-      coachList: []
+      coachList: [],
+      swiperList: [
+        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', msg: '金牌教练'}
+      ]
     }
   },
   computed: {

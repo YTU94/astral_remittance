@@ -12,10 +12,12 @@
     <div class="revate-list">
       <div class="revate-item" v-for="(store, index) in storeList" :key="index">
         <div class="item-name textOverflow">{{store.name}}</div>
-        <div class="item-offer textOverflow">返利{{store.discount}}</div>
+        <div class="item-offer textOverflow">{{store.discountContentMessage}}</div>
         <div class="item-line">
           <p class="item-address textOverflow">{{store.address}}</p>
-          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber(store)" class="right-btn" @click="goSubmit(store)">拿返利&nbsp;&nbsp;<span>></span></button>
+          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="right-btn" @click="goSubmit(store)">
+            拿返利&nbsp;&nbsp;<img class="right-btn__icon" src="../../assets/img/turn-right.png" alt="" mode="widthFix">
+          </button>
         </div>
       </div>
     </div>
@@ -66,9 +68,14 @@ export default {
       this._getStoreList()
     },
     getPhoneNumber (e) {
-      console.log(e.detail)
-      wx.navigateTo({
-        url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discount}`
+      const data = {
+        encryptedData: e.mp.detail.encryptedData,
+        iv: e.mp.detail.iv
+      }
+      this.$http.user.getPhoneNumber(data).then(res => {
+        wx.navigateTo({
+          url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discount}`
+        })
       })
     },
     _getStoreList () {
@@ -137,6 +144,8 @@ export default {
         }
         .right-btn{
           flex: 0 0 auto;
+          display: flex;
+          align-items: center;
           height: 50px;
           line-height: 50px;
           padding: 0 25px;
@@ -145,16 +154,14 @@ export default {
           color: #fff;
           background-color: #2BC68C;
           border-radius: 25px;
-          span{
-            display: inline-block;
+
+          &__icon{
             width: 24px;
-            height: 24px;
-            line-height: 1;
-            text-align: center;
-            color: #2BC68C;
             height: auto;
+            background: #fff;
             border-radius: 12px;
-            background-color: #fff;
+            position: relative;
+            flex: 0 0 auto;
           }
         }
       }

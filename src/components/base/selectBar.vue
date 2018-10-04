@@ -1,7 +1,7 @@
 <template>
   <div class="select-bar">
     <div class="select-bar__left">
-      <img class="flag-img" src="../../assets/img/flag.png" alt="alt">&nbsp;{{text}}
+      <img class="flag-img" src="../../assets/img/flag.png" alt="alt" mode="widthFix">&nbsp;{{text}}
     </div>
     <div class="select-bar__right">{{operation}}</div>
   </div>
@@ -28,11 +28,14 @@ export default {
   align-items: center;
   .select-bar__left, .select-bar__right{
     flex:  0 0 auto;
-    font-size: 28px;
-    line-height: 1;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: #666666;
     .flag-img{
-      width: 24px;
-      height: 24px;
+      flex: 0 0 auto;
+      width: 20px;
+      height: auto;
     }
   }
 }

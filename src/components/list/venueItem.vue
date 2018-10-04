@@ -11,7 +11,9 @@
         </slot>
       </div>
       <div class="line-address">{{venueItem.address}}</div>
-      <div class="line-star">★★★</div>
+      <div class="line-star" v-if="venueItem.starLevel && venueItem.starLevel.length > 0">
+        <span class="star" v-for="(item, index) in venueItem.starLevel" :key="index">★</span>
+      </div>
       <div class="line-distance">
         <slot name="diatance">
           <span class="name-msg">{{venueItem.distance}}</span>

@@ -22,10 +22,16 @@
       
       <div class="order-line">
         <span class="order-line__name">可用优惠</span>
-        <span class="order-line__rebate coupon-canUesd" @click="showCouponModel=!showCouponModel">
+        
+        <span class="order-line__rebate coupon-canUesd" v-if="curSelectCoupon&&curSelectCoupon.contentList" @click="showCouponModel=!showCouponModel">
+          满{{curSelectCoupon.contentList[0]}}减{{curSelectCoupon.contentList[1]}}
+        </span>
+        <span v-else class="order-line__rebate coupon-canUesd" @click="showCouponModel=!showCouponModel">
           <img class="order-line__rebate-icon" src="../../assets/img/coupon-icon.png" alt="" mode="widthFix">&nbsp;{{couponList.length}}张可用
         </span>
       </div>
+      
+      
       <div class="order-line">
         <div class="order-line__name">消费金额</div>
         <div class="order-line__rebate">
@@ -56,7 +62,7 @@
     <!-- coupon model -->
     <div class="blank-model" v-show="showCouponModel">
       <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
-      <coupon-item :couponItem="item" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
+      <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
     </div>
 
   </div>
@@ -96,7 +102,17 @@ export default {
   },
   computed: {
     returnMoney () {
-      return this.consumeMoney - 1
+      if (this.curSelectCoupon) {
+        if (this.curSelectCoupon.contentList && this.consumeMoney) {
+          if (this.consumeMoney > this.curSelectCoupon.contentList[0]) {
+            return this.consumeMoney * parseInt(this.store.discount) + this.curSelectCoupon.contentList[1]
+          } else {
+            return this.consumeMoney * parseInt(this.store.discount)
+          }
+        }
+      } else {
+        return this.consumeMoney * parseInt(this.store.discount) || 0
+      }
     }
   },
   created () {
@@ -141,15 +157,16 @@ export default {
               that.attachment = JSON.parse(data).vo
             }
           })
-          // that._uploadImage(tempFilePaths)
         }
       })
     },
     submitRebate () {
-      this._submitRebate(this.store.id, '', '', '', this.attachment)
+      this._submitRebate(this.store.id, this.curSelectCoupon.id || '', this.consumeMoney, this.returnMoney, this.attachment)
     },
     operateCoupons (obj) {
       console.log('操作 coupon', obj)
+      this.showCouponModel = false
+      this.curSelectCoupon = obj
     },
     _uploadImage (imgUrl) {
       this.$http.rebate.uploadImage({imgUrl}).then(res => {
@@ -163,11 +180,11 @@ export default {
         available: true
       }
       this.$http.coupon.getClientCouponList(data).then(res => {
-        console.log(res)
         res.pageList.list.map(e => {
-          console.log(e)
-          e.eTime = formatTime(e.effectTime)
-          e.operation = '使用'
+          if (e.hasOwnProperty('couponVo')) {
+            e.couponVo.eTime = formatTime(e.couponVo.effectTime)
+            e.couponVo.operation = '使用'
+          }
         })
         this.couponList = res.pageList.list
       })
@@ -253,7 +270,7 @@ export default {
         width: 100%;
         height: 334px;
         line-height: 334px;
-        border: 1px solid red;
+        border: 1px solid @border-color;
         position: relative;
         top: 0;
         text-align: center;
