@@ -44,7 +44,10 @@ export default {
       coachList: [],
       swiperList: [
         {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', msg: '金牌教练'}
-      ]
+      ],
+      // list
+      pageSize: 10,
+      pageNumber: 1
     }
   },
   computed: {
@@ -59,7 +62,11 @@ export default {
   },
   methods: {
     init () {
-      this.$http.coach.getCoachList({}).then(res => {
+      const data = {
+        pageSize: 5,
+        pageNumber: 1
+      }
+      this.$http.coach.getCoachList(data).then(res => {
         this.coachList = res.pageList.list
         this.coachList.forEach(obj => {
           obj.imgUrl = 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
