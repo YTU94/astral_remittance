@@ -1,5 +1,5 @@
 <template>
-  <div class="venue-item">
+  <div class="coach-item">
     <div class="left">
       <img :src="coachItem.imgUrl" alt="alt" v-bind:style="{width: imgWidth + 'rpx', height: imgHeight + 'rpx'}">
     </div>
@@ -9,8 +9,8 @@
       </div>
       <div class="line-star">
         <span class="star" v-for="(item, index) in coachItem.starLevel" :key="index">★</span>
-         / 累计上课{{}}节</div>
-      <div class="line-info" v-if="coachItem.speciality">{{coachItem.speciality}}</div>
+        &nbsp;/&nbsp;累计上课{{coachItem.classNum || ''}}节</div>
+      <div class="line-info textOverflow" v-if="coachItem.speciality">{{coachItem.speciality}}</div>
 
       <div class="line-tag">
           <span class="tag-item" v-for="(tag, index) in coachItem.tags" :key="index">{{tag}}</span>
@@ -40,7 +40,7 @@ export default {
 <style lang="less">
 @import '../../assets/style/variable.less';
 
-.venue-item {
+.coach-item {
   position: relative;
   top: 0;
   left: 0;
@@ -53,15 +53,18 @@ export default {
   .left{
     flex:  0 0 auto;
     font-size: 28px;
+    box-sizing: border-box;
     img{
       border-radius: 90px;
     }
   }
   .right{
-    flex: 1 1 100%;
+    display: inline-block;
+    flex: 1 1 1;
     padding-left: 20px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
     .line-name{
       color: #333333;
       font-size: 30px;

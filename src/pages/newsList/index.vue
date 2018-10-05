@@ -5,12 +5,14 @@
       <swiper-banner></swiper-banner>
     </div>
     <div class="list">
-      <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj" @guideTo="toNewsInfo"></venue-item>
+      <venue-item v-for="(obj, index) in articleList" :key="index" :venueItem="obj" @guideTo="toNewsInfo"></venue-item>
     </div>
   </div>
 </template>
 
 <script>
+import { formatTime } from '@/utils/index'
+
 import swiperBanner from '@/components/swiper-banner'
 import venueItem from '@/components/list/venueItem'
 
@@ -21,41 +23,72 @@ export default {
   },
   data () {
     return {
-      venueList: [
+      articleList: [
         {
           imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
           name: 'title',
           address: 'asd',
           distance: '2018-10-12'
-        },
-        {
-          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: 'title',
-          address: 'asd',
-          distance: '2018-10-12'},
-        {
-          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: 'title',
-          address: 'asd',
-          distance: '2018-10-12'},
-        {
-          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: 'title',
-          address: 'asd',
-          distance: '2018-10-12'},
-        {
-          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: 'title',
-          address: 'asd',
-          distance: '2018-10-12'}
-      ]
+        }
+      ],
+      // list
+      total: 0,
+      pageSize: 5,
+      curPageNumber: 1,
+      noMore: false
     }
+  },
+  mounted () {
+    this.init()
   },
   methods: {
     toNewsInfo (obj) {
       wx.navigateTo({
-        url: '../newsInfo/main'
+        url: `../newsInfo/main?id=${obj.id}`
       })
+    },
+    init () {
+      const data = {
+        pageSize: 10,
+        pageNumber: 1
+      }
+      this._getArticleList(data)
+    },
+    _getArticleList (data, merge) {
+      this.$http.article.getArticleList(data).then(res => {
+        console.log(res)
+        res.pageList.list.forEach(e => {
+          e.name = e.title
+          e.isHotArt = e.isHot
+          e.distance = formatTime(e.createdTime)
+        })
+        if (merge) {
+          this.articleList = this.articleList.concact(res.pageList.list)
+        } else {
+          this.articleList = res.pageList.list
+        }
+      })
+    },
+    /*
+    * 功能 fun
+    */
+    checkLoadmore () {
+      if (this.pageSize * this.curPageNumber > this.total) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
+  onReachBottom (e) {
+    if (this.checkLoadmore()) {
+      const data = {
+        pageSize: this.pageSize,
+        pageNumber: this.curPageNumber + 1
+      }
+      this._getArticleList(data, true)
+    } else {
+      this.noMore = true
     }
   }
 }

@@ -26,7 +26,7 @@ fly.interceptors.response.use(
       return response.data
     } else {
       wx.showToast({
-        title: typeof (response.data.messages) === 'string' ? response.data.messages : '系统出错',
+        title: typeof (response.data.message) === 'string' ? response.data.message : '系统出错',
         icon: 'none',
         duration: 1000
       })
@@ -47,7 +47,12 @@ fly.interceptors.response.use(
 
 export default function flyio (url, params, config) {
   return new Promise((resolve, reject) => {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     fly.request(url, params, config).then((response) => {
+      wx.hideLoading()
       if (response.success) {
         resolve(response)
       } else {

@@ -8,7 +8,7 @@
       :duration="duration">
       <block v-for="(item, index) in swiperList" :key="index">
         <swiper-item>
-            <div class="for-padding">
+            <div class="for-padding" @click="goToInfo(item.id)">
               <img v-if="item.imgUrl" :src="item.imgUrl" class="slide-image" mode="widthFix"/>
               <span v-if="item.msg" class="slide-msg">{{item.msg}}</span>
             </div>
@@ -35,6 +35,11 @@ export default {
       autoplay: true,
       interval: 5000,
       duration: 1000
+    }
+  },
+  methods: {
+    goToInfo (id) {
+      this.$emit('navigateTo', id)
     }
   }
 }

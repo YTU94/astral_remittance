@@ -15,8 +15,9 @@
         <span class="star" v-for="(item, index) in venueItem.starLevel" :key="index">★</span>
       </div>
       <div class="line-distance">
-        <slot name="diatance">
-          <span class="name-msg">{{venueItem.distance}}</span>
+        <slot name="distance">
+          <span class="hot-tag" v-if="venueItem.isHotArt">热门</span>
+          <span class="name-msg">{{venueItem.distance}}<span v-if="venueItem.unit">Km</span></span>
           <!-- <img class="name-icon" src="" alt=""> -->
         </slot>
       </div>
@@ -82,6 +83,13 @@ export default {
         width: 16px;
         height: 16px;
         border: 1px solid red;
+      }
+      .hot-tag{
+        color: #FF3F49;
+        font-size: 20px;
+        border: 1px solid #FF3F49;
+        padding: 0 4px;
+        border-radius: 4px;
       }
     }
     .line-name{

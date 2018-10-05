@@ -73,7 +73,7 @@ export default {
         iv: e.mp.detail.iv
       }
       this.$http.user.getPhoneNumber(data).then(res => {
-        wx.navigateTo({
+        wx.redirectTo({
           url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discount}`
         })
       })
@@ -154,7 +154,7 @@ export default {
           color: #fff;
           background-color: #2BC68C;
           border-radius: 25px;
-
+          border: 0;
           &__icon{
             width: 24px;
             height: auto;

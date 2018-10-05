@@ -10,5 +10,17 @@ export default {
     return fly('/rest/client/fillMobile', params, {
       method: 'POST'
     })
+  },
+  // 根据城市id,保存用户最近登录地址
+  fillAddressByCityId: function (params) {
+    return fly('/rest/client/fillAddressByCityId', params, {
+      method: 'POST'
+    })
+  },
+  // 根据用户详细经纬度,保存用户最近登录地址
+  fillAddressByDetail: function (params) {
+    return fly('/rest/client/fillAddressByDetail', params, {
+      method: 'POST'
+    })
   }
 }

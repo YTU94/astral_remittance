@@ -2,11 +2,11 @@
   <div class="home" @click="clickHandle('test click', $event)">
     <!-- 定位 -->
     <div class="top-location">
-      <location  text="123"></location>
+      <location  text="123" @refresh="refresh"></location>
     <!-- slide banner -->
     </div>
     <div class="top-banner" >
-      <swiper-banner></swiper-banner>
+      <swiper-banner :swiperList="articleList" @navigateTo="navigateToNews"></swiper-banner>
     </div>
 
     <!-- <div class="" @click="toAllNews">全部</div> -->
@@ -41,6 +41,7 @@ import location from '@/components/location'
 export default {
   data () {
     return {
+      articleList: [],
       motto: 'Hello World',
       userInfo: {},
       sliderList: []
@@ -63,7 +64,7 @@ export default {
   methods: {
     init () {
       const data = {
-        pageSize: 2,
+        pageSize: 4,
         pageNumber: 1,
         isHot: true
       }
@@ -74,6 +75,7 @@ export default {
           obj.name2 = obj.address
         })
       })
+      this._getArticleList({ pageSize: 3, pageNumber: 1 })
     },
     goTo (name) {
       if (name === '找场馆') {
@@ -117,6 +119,25 @@ export default {
     toAllNews () {
       wx.navigateTo({
         url: './../newsList/main'
+      })
+    },
+    navigateToNews (id) {
+      wx.navigateTo({
+        url: `../newsInfo/main?id=${id}`
+      })
+    },
+    // 刷新
+    refresh (e) {
+      this.init()
+    },
+    _getArticleList (data, merge) {
+      this.$http.article.getArticleList(data).then(res => {
+        console.log(res)
+        if (merge) {
+          this.articleList = this.articleList.concact(res.pageList.list)
+        } else {
+          this.articleList = res.pageList.list
+        }
       })
     }
   }

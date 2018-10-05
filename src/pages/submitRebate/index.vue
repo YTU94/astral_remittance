@@ -45,7 +45,7 @@
     <!-- img input priview-->
     <div class="order-content">
       <div class="order-line">
-        <span class="order-line__name">上传病症</span>
+        <span class="order-line__name">上传凭证</span>
       </div>
       <div class="order-line line-height-auto" style="height:auto;">
         <img v-if="imgUrl" :src="imgUrl" alt="" class="order-line__img" @click="selectImg">
@@ -105,13 +105,13 @@ export default {
       if (this.curSelectCoupon) {
         if (this.curSelectCoupon.contentList && this.consumeMoney) {
           if (this.consumeMoney > this.curSelectCoupon.contentList[0]) {
-            return this.consumeMoney * parseInt(this.store.discount) + this.curSelectCoupon.contentList[1]
+            return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100 + parseInt(this.curSelectCoupon.contentList[1])
           } else {
-            return this.consumeMoney * parseInt(this.store.discount)
+            return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100
           }
         }
       } else {
-        return this.consumeMoney * parseInt(this.store.discount) || 0
+        return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100 || 0
       }
     }
   },
@@ -147,21 +147,41 @@ export default {
           that.imgUrl = tempFilePaths[0]
           console.log('tempFilePaths', tempFilePaths)
           wx.uploadFile({
-            url: 'http://192.168.0.106:9090/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
+            url: 'http://47.92.217.9:9090/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             formData: {},
+            // header: {
+            //   'third-session': wx.getStoregeSync('thirdSession')
+            // },
             success (res) {
               const data = res.data
               // do something
-              that.attachment = JSON.parse(data).vo
+              that.store.attachment = JSON.parse(data).vo
             }
           })
         }
       })
     },
     submitRebate () {
-      this._submitRebate(this.store.id, this.curSelectCoupon.id || '', this.consumeMoney, this.returnMoney, this.attachment)
+      if (!this.consumeMoney) {
+        wx.showToast({
+          title: '请输入消费金额',
+          icon: 'none',
+          mask: true
+        })
+        return false
+      }
+      if (!this.store.attachment) {
+        wx.showToast({
+          title: '请上传凭证图片',
+          icon: 'none',
+          mask: true
+        })
+        return false
+      }
+      const id = this.curSelectCoupon ? this.curSelectCoupon.id : ''
+      this._submitRebate(this.store.id, id, this.consumeMoney, this.returnMoney, this.store.attachment)
     },
     operateCoupons (obj) {
       console.log('操作 coupon', obj)
@@ -205,6 +225,9 @@ export default {
           icon: 'success', // loading
           duration: 1500,
           mask: true
+        })
+        wx.switchTab({
+          url: '../index/main'
         })
       })
     },

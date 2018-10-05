@@ -5,6 +5,7 @@ import company from './company'
 import coach from './coach'
 import store from './store'
 import rebate from './rebate'
+import article from './article'
 import coupon from './coupon'
 
 export default {
@@ -14,6 +15,7 @@ export default {
   store,
   coach,
   coupon,
+  article,
   rebate,
   company
 }

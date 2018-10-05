@@ -2,54 +2,67 @@
   <div class="mews-info">
     <p class="info-title">{{newsInfo.title}}</p>
     <div class="line-msg">
-      <span class="info-user">{{newsInfo.user}}</span>
-      <span class="info-date">{{newsInfo.date}}</span>
+      <span class="info-user">{{newsInfo.creator || 'admin'}}</span>
+      &nbsp;&nbsp;
+      <span class="info-date">{{newsInfo.createdTime}}</span>
     </div>
 
     <div class="info-img">
-      <img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" mode="widthFix">
+      <img :src="newsInfo.imgUrl" alt="" mode="widthFix">
     </div>
-
-    <div class="info-msg">{{newsInfo.text}}</div>
+    <h1>v-html</h1>
+    <!-- <div class="info-msg">{{newsInfo.cosntent}}</div> -->
+    <!-- content -->
+    <wxParse :content="newsInfo.content" @preview="preview" @navigate="navigate" />
   </div>
 </template>
 
 <script>
+import wxParse from 'mpvue-wxparse'
+import { formatTime } from '@/utils/index'
 
 export default {
-  components: {},
+  components: {
+    wxParse
+  },
   data () {
     return {
+      id: '',
       newsInfo: {},
       venueList: [
-        {imgUrl: '', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'}
-      ]
+        {imgUrl: '', name: 'title', address: 'asd', distance: '4444'}
+      ],
+      hContent: ''
     }
   },
-  created () {
+  beforeMount () {
+    this.id = this.$mp.query.id
+  },
+  mounted () {
     this.init()
+    // this.hContent = '<h2>title1</h2><blockquote><p>...1234</p ></blockquote><hr /><h2>title2</h2><p><img src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" alt="" />'
   },
   methods: {
     init () {
-      this.newsInfo = this._getNewsInfo()
+      this._getNewsInfo()
     },
+    preview () {},
+    navigate () {},
     _getNewsInfo () {
-      return {
-        title: '他曾远赴边疆山东省反倒是水电费水电费第三方第三方第三方递四方速递，撒打撒打算的 ',
-        user: '渣渣辉',
-        date: '10-10',
-        text: 'qwewq'
-      }
+      this.$http.article.findArticle({ id: this.id }).then(res => {
+        this.newsInfo = res.vo
+        if (this.newsInfo.createdTime) {
+          this.newsInfo.createdTime = formatTime(this.newsInfo.createdTime, true)
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="less">
+@import url("~mpvue-wxparse/src/wxParse.css");
+
 .mews-info{
   padding: 40px 20px;
   .info-title{
@@ -65,11 +78,11 @@ export default {
   .line-msg{
     padding: 30px 0;
     .info-user{
-      font-size: 28px;
-      color: blue;
+      font-size: 24px;
+      color:#2d8cf0;
     }
     .info-date{
-      font-size: 28px;
+      font-size: 24px;
       color: #777;
     }
   }

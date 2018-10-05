@@ -29,14 +29,14 @@ export default {
     }
   },
   mounted () {
-    // let that = this
+    let that = this
     wx.getLocation({
       type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
         console.log('经纬度', latitude, longitude)
-        // that._findCity(longitude, latitude)
+        that._fillAddressByDetail({longitude, latitude})
       }
     })
     this.getCityList()
@@ -50,25 +50,34 @@ export default {
       this.curCity = city.name
       this.showSeachres = false
       wx.setStorageSync('curCity', {name: city.name, id: city.id})
+      this._fillAddressByCityId({id: city.id})
     },
     getCityList () {
       this.$http.cities.getCityList({}).then(res => {
         this.citiesList = res.pageList.list
       })
     },
-    _findCity (longitude, latitude) {
+    refresh () {
+      this.$emit('refresh', {})
+    },
+    // 根据城市id,保存用户最近登录地址
+    _fillAddressByCityId (data) {
+      this.$http.user.fillAddressByCityId(data).then(res => {
+        console.log(res)
+        this.refresh()
+      })
+    },
+    // 根据用户详细经纬度,保存用户最近登录地址
+    _fillAddressByDetail (data) {
       let that = this
-      const data = {
-        longitude,
-        latitude
-      }
-      this.$http.cities.findCity(data).then(res => {
+      this.$http.user.fillAddressByDetail(data).then(res => {
         if (res.vo.name) {
           wx.showModal({
             title: '城市定位',
             content: `当前城市定位为${res.vo.name}，是否需要切换至该城市`,
             success: function () {
               that.curCity = res.vo.name
+              that.refresh()
             },
             fail: function (err) {
               console.log(err)
