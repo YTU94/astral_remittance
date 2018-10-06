@@ -2,7 +2,7 @@
   <div class="home" @click="clickHandle('test click', $event)">
     <!-- 定位 -->
     <div class="top-location">
-      <location  text="123" @refresh="refresh"></location>
+      <location  text="123" @refresh="refresh" @resolve="resolve"></location>
     <!-- slide banner -->
     </div>
     <div class="top-banner" >
@@ -59,14 +59,15 @@ export default {
   },
   mounted () {
     this.getUserInfo()
-    this.init()
+    // this.init()
   },
   methods: {
     init () {
       const data = {
         pageSize: 4,
         pageNumber: 1,
-        isHot: true
+        isHot: true,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this.$http.store.getStoreList(data).then(res => {
         this.sliderList = res.pageList.list
@@ -76,6 +77,9 @@ export default {
         })
       })
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
+    },
+    resolve () {
+      this.init()
     },
     goTo (name) {
       if (name === '找场馆') {

@@ -22,7 +22,7 @@ export default {
   props: ['text'],
   data () {
     return {
-      curCity: '杭州',
+      curCity: '',
       citiesList: [],
       customItem: '全部',
       showSeachres: false
@@ -30,6 +30,7 @@ export default {
   },
   mounted () {
     let that = this
+    this.getCityList() // 必获取默认城市场馆
     wx.getLocation({
       type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
       success: function (res) {
@@ -39,7 +40,6 @@ export default {
         that._fillAddressByDetail({longitude, latitude})
       }
     })
-    this.getCityList()
   },
   methods: {
     bindRegionChange (e) {
@@ -55,6 +55,10 @@ export default {
     getCityList () {
       this.$http.cities.getCityList({}).then(res => {
         this.citiesList = res.pageList.list
+        this.curCity = res.pageList.list[0].name
+        // 存默认的城市
+        wx.setStorageSync('curCity', {name: res.pageList.list[0].name, id: res.pageList.list[0].id})
+        this.refresh()
       })
     },
     refresh () {
@@ -63,7 +67,6 @@ export default {
     // 根据城市id,保存用户最近登录地址
     _fillAddressByCityId (data) {
       this.$http.user.fillAddressByCityId(data).then(res => {
-        console.log(res)
         this.refresh()
       })
     },
@@ -76,6 +79,7 @@ export default {
             title: '城市定位',
             content: `当前城市定位为${res.vo.name}，是否需要切换至该城市`,
             success: function () {
+              wx.setStorageSync('curCity', {name: res.vo.name, id: res.vo.id})
               that.curCity = res.vo.name
               that.refresh()
             },

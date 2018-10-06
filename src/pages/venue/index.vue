@@ -52,7 +52,8 @@ export default {
     init () {
       const data = {
         pageSize: 4,
-        pageNumber: 1
+        pageNumber: 1,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this._getStoreList(data)
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
