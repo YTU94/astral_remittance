@@ -50,7 +50,7 @@ export default {
       this.curCity = city.name
       this.showSeachres = false
       wx.setStorageSync('curCity', {name: city.name, id: city.id})
-      this._fillAddressByCityId({id: city.id})
+      this._fillAddressByCityId({cityId: city.id})
     },
     getCityList () {
       this.$http.cities.getCityList({}).then(res => {
