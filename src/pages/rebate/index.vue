@@ -43,13 +43,11 @@ export default {
     return {
       logs: [],
       storeList: [],
-      venueList: [
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'},
-        {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', name: 'title', address: 'asd', distance: '4444'}
-      ]
+      // list
+      total: 0,
+      pageSize: 5,
+      curPageNumber: 1,
+      noMore: false
     }
   },
 
@@ -65,7 +63,12 @@ export default {
       this.curStore = store
     },
     init () {
-      this._getStoreList()
+      const data = {
+        pageSize: 4,
+        pageNumber: 1,
+        cityId: wx.getStorageSync('curCity').id || ''
+      }
+      this._getStoreList(data)
     },
     getPhoneNumber (e) {
       const data = {
@@ -78,11 +81,26 @@ export default {
         })
       })
     },
-    _getStoreList () {
-      this.$http.store.getStoreList({}).then(res => {
+    _getStoreList (data, merge) {
+      this.$http.store.getStoreList(data).then(res => {
         this.total = res.pageList.count
-        this.storeList = res.pageList.list
+        if (merge) {
+          this.storeList = this.storeList.concact(res.pageList.list)
+        } else {
+          this.storeList = res.pageList.list
+        }
       })
+    }
+  },
+  onReachBottom (e) {
+    if (this.checkLoadmore()) {
+      const data = {
+        pageSize: this.pageSize,
+        pageNumber: this.curPageNumber + 1
+      }
+      this._getStoreList(data, true)
+    } else {
+      this.noMore = true
     }
   }
 }
