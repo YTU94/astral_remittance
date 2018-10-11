@@ -1,7 +1,9 @@
 
 var Fly = require('flyio/dist/npm/wx')
 var fly = new Fly()
-fly.config.baseURL = 'http://47.92.217.9:9090'
+const HOST_DEV = 'http://47.92.217.9:9090' // eslint-disable-line
+const HOST_PROD = 'https://xthapi-prod.isagr.com' // eslint-disable-line
+fly.config.baseURL = HOST_PROD
 
 // 添加请求拦截器
 fly.interceptors.request.use((request) => {
