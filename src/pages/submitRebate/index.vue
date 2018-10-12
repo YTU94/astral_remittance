@@ -172,14 +172,14 @@ export default {
         })
         return false
       }
-      if (!this.store.attachment) {
-        wx.showToast({
-          title: '请上传凭证图片',
-          icon: 'none',
-          mask: true
-        })
-        return false
-      }
+      // if (!this.store.attachment) {
+      //   wx.showToast({
+      //     title: '请上传凭证图片',
+      //     icon: 'none',
+      //     mask: true
+      //   })
+      //   return false
+      // }
       const id = this.curSelectCoupon ? this.curSelectCoupon.id : ''
       this._submitRebate(this.store.id, id, this.consumeMoney, this.returnMoney, this.store.attachment)
     },

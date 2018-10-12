@@ -46,7 +46,7 @@ export default {
   left: 0;
   width: 100%;
   display: flex;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid @border-color;
   margin-bottom: 20px;
   align-items: stretch;
