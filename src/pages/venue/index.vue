@@ -76,7 +76,6 @@ export default {
         } else {
           this.venueList = res.pageList.list
         }
-        this.venueList = res.pageList.list
       })
     },
     _getArticleList (data, merge) {

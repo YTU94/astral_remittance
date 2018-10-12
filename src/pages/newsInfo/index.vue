@@ -10,7 +10,6 @@
     <div class="info-img">
       <img :src="newsInfo.imgUrl" alt="" mode="widthFix">
     </div>
-    <h1>v-html</h1>
     <!-- <div class="info-msg">{{newsInfo.cosntent}}</div> -->
     <!-- content -->
     <wxParse :content="newsInfo.content" @preview="preview" @navigate="navigate" />
