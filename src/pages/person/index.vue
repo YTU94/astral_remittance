@@ -14,17 +14,23 @@
     </div>
     <div class="user">
       <ul class="info">
-        <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || ' '}}</span></li>
+        <!-- <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || ' '}}</span></li> -->
         <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || ' '}}</span></li>
         <li class="info-item" @click="showCouponModel = true">
           我的优惠卷
-          <span class="info-item-content" v-if="couponList && couponList.length > 0" >{{couponList.length || '0'}}</span>
+          <span class="info-item-content">{{couponListTotal}}</span>
+        </li>
+        <li class="info-item" @click="goOrderList">
+          我的返利订单
+          <span class="info-item-content">{{rebateOrderTotal}}</span>
         </li>
       </ul>
     </div>
 
     <div class="blank-model" v-show="showCouponModel">
-      <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      <div class="model-close__icon" @click="showCouponModel = false">
+        <img class="close-icon"  src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      </div>
       <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index"></coupon-item>
     </div>
 
@@ -56,6 +62,9 @@ export default {
         phone: ''
       },
       couponList: [],
+      couponListTotal: 0,
+      rebateOrderList: [],
+      rebateOrderTotal: 0,
       showCouponModel: false
     }
   },
@@ -68,16 +77,37 @@ export default {
   onShow () {
     console.log('Onshow---------->')
     this._getClientCouponList()
+    this._getUserRebateOrderList()
   },
   methods: {
+    goOrderList () {
+      let orderList = JSON.stringify(this.rebateOrderList)
+      wx.navigateTo({
+        url: `./orderList/main?orderList=${orderList}`
+      })
+    },
     _getClientCouponList () {
       this.$http.coupon.getClientCouponList({}).then(res => {
         res.pageList.list.forEach(e => {
           if (e.hasOwnProperty('couponVo')) {
+            e.couponVo.isUesdName = e.couponVo.isUesd ? '已使用' : '未使用'
             e.couponVo.eTime = formatTime(e.couponVo.effectTime)
           }
         })
         this.couponList = res.pageList.list
+        this.couponListTotal = res.pageList.count
+      })
+    },
+    _getUserRebateOrderList (data) {
+      this.$http.rebate.getUserRebateOrderList(data).then(res => {
+        res.pageList.list.forEach(e => {
+          if (e.hasOwnProperty('createdTime')) {
+            e.statusName = e.status === 'SUBMITED' ? '已提交' : '已领取'
+            e.createdTimeFormated = formatTime(e.createdTime, true)
+          }
+        })
+        this.rebateOrderList = res.pageList.list
+        this.rebateOrderTotal = res.pageList.count
       })
     }
   }
@@ -160,13 +190,22 @@ export default {
     width: 100%;
     background: #fff;
     z-index: 10001;
-    padding:60px 30px 30px;
+    padding:50px 30px 30px;
     box-sizing: border-box;
-    .close-icon{
+    line-height: 1;
+    .model-close__icon{
       position: absolute;
-      top: 30px;
+      top: 0px;
       right: 30px;
-      width: 20px;
+      padding: 5px 10px;
+      width: auto;
+      height: auto;
+       .close-icon{
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 25px;
+      }
     }
   }
 }

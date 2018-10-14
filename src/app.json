@@ -5,6 +5,7 @@
     "pages/newsInfo/main",
     "pages/submitRebate/main",
     "pages/person/main",
+    "pages/person/orderList/main",
     "pages/rebate/main",
     "pages/coach/main",
     "pages/coupon/main",

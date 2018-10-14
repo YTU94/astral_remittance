@@ -12,5 +12,11 @@ export default {
     return fly('/rest/rebate/weChat/uploadImage', params, {
       method: 'POST'
     })
+  },
+  // 用户返利订单列表
+  getUserRebateOrderList: function (params) {
+    return fly('/rest/rebate/listPagination', params, {
+      method: 'POST'
+    })
   }
 }

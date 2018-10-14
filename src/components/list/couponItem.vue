@@ -11,6 +11,7 @@
             满{{couponItem.contentList[0]}}减{{couponItem.contentList[1]}}
           </div>
           <div class="line-right coupon-btn" v-if="couponItem.operation" @click="collectCoupons(couponItem)">{{couponItem.operation}}</div>
+          <div class="line-right coupon-btn" v-else-if="couponItem.isUesdName">{{couponItem.isUesdName}}</div>
         </div>
         <div class="item-line">
           <div class="line-left use-range">
@@ -87,9 +88,10 @@ export default {
       }
       .coupon-btn{
         font-size: 24px;
-        width: 80px;
+        width: auto;
         height: 40px;
         line-height: 40px;
+        padding: 0 20px;
         border: 1px solid #555060;
         color: #555060;
         text-align: center;

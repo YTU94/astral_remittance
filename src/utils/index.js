@@ -3,7 +3,7 @@ function formatNumber (n) {
   return str[1] ? str : `0${str}`
 }
 
-export function formatTime (v) {
+export function formatTime (v, simple) {
   console.log(v, '打')
   const date = new Date(parseInt(v))
   const year = date.getFullYear()
@@ -17,7 +17,11 @@ export function formatTime (v) {
   const t1 = [year, month, day].map(formatNumber).join('/')
   const t2 = [hour, minute, second].map(formatNumber).join(':')
   console.log('t1', t1)
-  return `${t1} ${t2}`
+  if (simple) {
+    return `${t1}`
+  } else {
+    return `${t1} ${t2}`
+  }
 }
 
 export default {

@@ -77,7 +77,7 @@ export default {
       }
       this.$http.user.getPhoneNumber(data).then(res => {
         wx.redirectTo({
-          url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discount}`
+          url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discountContent}`
         })
       })
     },

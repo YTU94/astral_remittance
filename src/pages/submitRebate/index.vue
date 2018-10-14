@@ -61,7 +61,17 @@
     </div>
     <!-- coupon model -->
     <div class="blank-model" v-show="showCouponModel">
-      <img class="close-icon" @click="showCouponModel = false" src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      <div class="model-close__icon" @click="showCouponModel = false">
+        <img class="close-icon"  src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      </div>
+      <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
+    </div>
+
+    <!-- rebater model -->
+    <div class="blank-model" v-show="showCouponModel">
+      <div class="model-close__icon" @click="showCouponModel = false">
+        <img class="close-icon"  src="../../assets/img/close-icon.png" alt="" mode="widthFix">
+      </div>
       <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
     </div>
 
@@ -122,7 +132,7 @@ export default {
   beforeMount () {
     this.store.id = this.$mp.query.id
     this.store.name = this.$mp.query.name
-    this.store.discount = this.$mp.query.id
+    this.store.discount = this.$mp.query.discount
   },
   mounted () {
     console.log(this.store, 'store')
@@ -150,7 +160,9 @@ export default {
             url: 'http://47.92.217.9:9090/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
-            formData: {},
+            formData: {
+              imgType: 'rebate' // store, coach, rebate, level, default
+            },
             // header: {
             //   'third-session': wx.getStoregeSync('thirdSession')
             // },
@@ -341,13 +353,22 @@ export default {
     width: 100%;
     background: #fff;
     z-index: 10001;
-    padding:60px 30px 30px;
+    padding:50px 30px 30px;
     box-sizing: border-box;
-    .close-icon{
+    line-height: 1;
+    .model-close__icon{
       position: absolute;
-      top: 30px;
+      top: 0px;
       right: 30px;
-      width: 20px;
+      padding: 5px 10px;
+      width: auto;
+      height: auto;
+       .close-icon{
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 25px;
+      }
     }
   }
 }

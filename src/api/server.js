@@ -9,6 +9,7 @@ fly.config.baseURL = HOST_PROD
 fly.interceptors.request.use((request) => {
   // 给所有请求添加自定义header
   request.headers['X-Tag'] = 'flyio'
+  request.headers['content-type'] = 'application/json;charset=UTF-8'
   request.headers['third-session'] = wx.getStorageSync('thirdSession') || ''
   // 打印出请求体
   console.log(request.body)

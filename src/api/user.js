@@ -22,5 +22,11 @@ export default {
     return fly('/rest/client/fillAddressByDetail', params, {
       method: 'POST'
     })
+  },
+  // 查询用户信
+  getUserInfo: function (params) {
+    return fly('/rest/client/find', params, {
+      method: 'GET'
+    })
   }
 }
