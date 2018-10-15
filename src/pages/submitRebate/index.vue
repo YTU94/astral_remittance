@@ -239,7 +239,7 @@ export default {
           mask: true
         })
         wx.switchTab({
-          url: '../index/main'
+          url: '../tabBar/index/main'
         })
       })
     },
