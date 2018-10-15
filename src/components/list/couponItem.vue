@@ -1,6 +1,7 @@
 <template>
     <!-- 优惠券列表 -->
     <div class="coupon-item">
+      <slot></slot>
       <img class="coupone-item__img" src="../../assets/img/coupons-bg.png" alt="" mode="widthFix">
       <div class="coupone-item__c" v-if="couponItem">
         <div class="item-line">
@@ -100,6 +101,9 @@ export default {
       .use-range{
         font-size: 24px;
         color: @font-color-gray;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .effective-date{
         font-size: 24px;

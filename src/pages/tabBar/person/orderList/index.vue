@@ -1,12 +1,12 @@
 <template>
   <div class="order-list">
     <div class="order-item" v-if="rebateOrderList.length > 0" v-for="(item, index) in rebateOrderList" :key="index">
-      <img class="order-item__img" src="../../../assets/img/coupons-bg.png" alt="" mode="widthFix">
+      <img class="order-item__img" src="../../../../assets/img/coupons-bg.png" alt="" mode="widthFix">
       <div class="order-item__c">
         <div class="item-line">
           <div class="line-left rebate-price">
-            {{item.returnMoney}}¥
-            <span class="consume-price">(总金额：{{item.consumeMoney}}¥)</span>
+            {{item.returnMoney}}元
+            <span class="consume-price">(总金额：{{item.consumeMoney}}元)</span>
           </div>
           <div class="line-right creat-time" v-if="item.storeVo">{{item.storeVo.name}}</div>
         </div>
@@ -56,7 +56,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../../assets/style/variable.less';
+@import '../../../../assets/style/variable.less';
 .order-list{
   position: relative;
   padding: 0 30px;

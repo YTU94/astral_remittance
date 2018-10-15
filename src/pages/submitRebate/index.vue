@@ -114,7 +114,7 @@ export default {
     returnMoney () {
       if (this.curSelectCoupon) {
         if (this.curSelectCoupon.contentList && this.consumeMoney) {
-          if (this.consumeMoney > this.curSelectCoupon.contentList[0]) {
+          if (parseFloat(this.consumeMoney) > parseFloat(this.curSelectCoupon.contentList[0])) {
             return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100 + parseInt(this.curSelectCoupon.contentList[1])
           } else {
             return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100
@@ -157,7 +157,7 @@ export default {
           that.imgUrl = tempFilePaths[0]
           console.log('tempFilePaths', tempFilePaths)
           wx.uploadFile({
-            url: 'http://47.92.217.9:9090/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
+            url: 'https://xthapi-prod.isagr.com/rest/rebate/weChat/uploadImage', // 仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
             name: 'file',
             formData: {

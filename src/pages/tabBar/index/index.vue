@@ -12,19 +12,19 @@
     <!-- <div class="" @click="toAllNews">全部</div> -->
     <div class="main-list">
       <div class="list-item" @click="goTo('找场馆')">
-          <img class="bg-img" src="../../assets/img/venue-bg.png" alt="">
+          <img class="bg-img" src="../../../assets/img/venue-bg.png" alt="">
           <p class="title">找场馆</p>
       </div>
       <div class="list-item" @click="goTo('找教练')">
-          <img class="bg-img" src="../../assets/img/coach-bg.png" alt="">
+          <img class="bg-img" src="../../../assets/img/coach-bg.png" alt="">
           <p class="title">找教练</p>
       </div>
       <div class="list-item" @click="goTo('找优惠')">
-          <img class="bg-img" src="../../assets/img/coupon-bg.png" alt="">
+          <img class="bg-img" src="../../../assets/img/coupon-bg.png" alt="">
           <p class="title">找优惠</p>
       </div>
       <div class="list-item" @click="goTo('拿返利')">
-          <img class="bg-img" src="../../assets/img/rebate-bg.png" alt="">
+          <img class="bg-img" src="../../../assets/img/rebate-bg.png" alt="">
           <p class="title">拿返利</p>
       </div>
     </div>
@@ -43,7 +43,6 @@ export default {
     return {
       articleList: [],
       motto: 'Hello World',
-      userInfo: {},
       sliderList: []
     }
   },
@@ -58,8 +57,8 @@ export default {
     console.log('index created')
   },
   mounted () {
-    this.getUserInfo()
-    // this.init()
+    // this.getUserInfo()
+    this.init()
   },
   methods: {
     init () {
@@ -84,37 +83,25 @@ export default {
     goTo (name) {
       if (name === '找场馆') {
         wx.navigateTo({
-          url: './../venue/main'
+          url: './../../venue/main'
         })
       } else if (name === '找教练') {
         wx.navigateTo({
-          url: './../coach/main'
+          url: './../../coach/main'
         })
       } else if (name === '找优惠') {
         wx.navigateTo({
-          url: './../coupon/main'
+          url: './../../coupon/main'
         })
       } else if (name === '拿返利') {
         wx.navigateTo({
-          url: './../rebate/main'
+          url: './../../rebate/main'
         })
       }
     },
     guideTo () {
       wx.navigateTo({
-        url: './../venue/main'
-      })
-    },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
+        url: './../../venue/main'
       })
     },
     clickHandle (msg, ev) {
@@ -122,7 +109,7 @@ export default {
     },
     toAllNews () {
       wx.navigateTo({
-        url: './../newsList/main'
+        url: './../../newsList/main'
       })
     },
     navigateToNews (id) {
@@ -150,7 +137,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/style/variable.less';
+@import '../../../assets/style/variable.less';
 
 .home {
   position: relative;

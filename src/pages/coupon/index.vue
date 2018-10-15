@@ -51,7 +51,7 @@ export default {
       }
       this.$http.coupon.getCouponList(data).then(res => {
         res.pageList.list.map(e => {
-          e.eTime = formatTime(e.effectTime)
+          e.eTime = formatTime(e.effectTime, true)
         })
         this.couponList = res.pageList.list
       })

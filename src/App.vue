@@ -13,6 +13,9 @@ export default {
       success: function (res) {
         that.$http.user.login({code: res.code}).then(res => {
           wx.setStorageSync('thirdSession', res.vo)
+          that.$http.user.getUserInfo({}).then(res => {
+            wx.setStorageSync('userInfo', res.vo)
+          })
         })
       }
     })

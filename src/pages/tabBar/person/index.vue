@@ -15,8 +15,8 @@
     <div class="user">
       <ul class="info">
         <!-- <li class="info-item">姓名<span class="info-item-content">{{userInformation.name || ' '}}</span></li> -->
-        <li class="info-item">手机号<span class="info-item-content">{{userInformation.phone || ' '}}</span></li>
-        <li class="info-item" @click="showCouponModel = true">
+        <li class="info-item">手机号<span class="info-item-content">{{userInformation.mobile || ' '}}</span></li>
+        <li class="info-item" @click="goCouponList">
           我的优惠卷
           <span class="info-item-content">{{couponListTotal}}</span>
         </li>
@@ -25,13 +25,6 @@
           <span class="info-item-content">{{rebateOrderTotal}}</span>
         </li>
       </ul>
-    </div>
-
-    <div class="blank-model" v-show="showCouponModel">
-      <div class="model-close__icon" @click="showCouponModel = false">
-        <img class="close-icon"  src="../../assets/img/close-icon.png" alt="" mode="widthFix">
-      </div>
-      <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index"></coupon-item>
     </div>
 
   </div>
@@ -56,11 +49,7 @@ export default {
         avatar: '',
         name: ''
       },
-      userInformation: {
-        name: '',
-        idno: '',
-        phone: ''
-      },
+      userInformation: {},
       couponList: [],
       couponListTotal: 0,
       rebateOrderList: [],
@@ -78,8 +67,15 @@ export default {
     console.log('Onshow---------->')
     this._getClientCouponList()
     this._getUserRebateOrderList()
+    this.userInformation = wx.getStorageSync('userInfo')
   },
   methods: {
+    goCouponList () {
+      let couponList = JSON.stringify(this.couponList)
+      wx.navigateTo({
+        url: `./couponList/main?couponList=${couponList}`
+      })
+    },
     goOrderList () {
       let orderList = JSON.stringify(this.rebateOrderList)
       wx.navigateTo({
@@ -91,7 +87,7 @@ export default {
         res.pageList.list.forEach(e => {
           if (e.hasOwnProperty('couponVo')) {
             e.couponVo.isUesdName = e.couponVo.isUesd ? '已使用' : '未使用'
-            e.couponVo.eTime = formatTime(e.couponVo.effectTime)
+            e.couponVo.eTime = formatTime(e.couponVo.effectTime, true)
           }
         })
         this.couponList = res.pageList.list
@@ -114,7 +110,7 @@ export default {
 }
 </script>
 <style lang="less">
-@import '../../assets/style/variable.less';
+@import '../../../assets/style/variable.less';
 .person{
   position: relative;
   .header{

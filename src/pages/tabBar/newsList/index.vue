@@ -2,7 +2,9 @@
   <div class="mews-list">
     <div class="top-banner" >
       <p class="hot">热门推荐</p>
-      <swiper-banner></swiper-banner>
+      <div class="top-banner__box" >
+        <swiper-banner :swiperList="hotArticleList" @navigateTo="navigateToNews"></swiper-banner>
+      </div>
     </div>
     <div class="list">
       <venue-item v-for="(obj, index) in articleList" :key="index" :venueItem="obj" @guideTo="toNewsInfo"></venue-item>
@@ -23,14 +25,8 @@ export default {
   },
   data () {
     return {
-      articleList: [
-        {
-          imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-          name: 'title',
-          address: 'asd',
-          distance: '2018-10-12'
-        }
-      ],
+      hotArticleList: [],
+      articleList: [],
       // list
       total: 0,
       pageSize: 5,
@@ -44,7 +40,7 @@ export default {
   methods: {
     toNewsInfo (obj) {
       wx.navigateTo({
-        url: `../newsInfo/main?id=${obj.id}`
+        url: `../../newsInfo/main?id=${obj.id}`
       })
     },
     init () {
@@ -53,6 +49,22 @@ export default {
         pageNumber: 1
       }
       this._getArticleList(data)
+      this.getHotArticleList()
+    },
+    getHotArticleList () {
+      const data = {
+        pageSize: 3,
+        pageNumber: 1,
+        isHot: true
+      }
+      this.$http.article.getArticleList(data).then(res => {
+        this.hotArticleList = res.pageList.list
+      })
+    },
+    navigateToNews (id) {
+      wx.navigateTo({
+        url: `../../newsInfo/main?id=${id}`
+      })
     },
     _getArticleList (data, merge) {
       this.$http.article.getArticleList(data).then(res => {
@@ -95,7 +107,7 @@ export default {
 </script>
 
 <style lang="less">
-@import '../../assets/style/variable.less';
+@import '../../../assets/style/variable.less';
 
 .mews-list{
   position: relative;
@@ -108,6 +120,11 @@ export default {
       font-size: 36px;
       color: #333333;
       padding: 0 30px 30px;
+    }
+    .top-banner__box{
+      background: #fff;
+      padding-bottom: 30px;
+      margin-bottom: 20px;
     }
   }
   .list{

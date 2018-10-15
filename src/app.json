@@ -1,11 +1,13 @@
 {
   "pages": [
-    "pages/index/main",
-    "pages/newsList/main",
+    "pages/tabBar/index/main",
+    "pages/tabBar/newsList/main",
+    "pages/tabBar/person/main",
+    "pages/tabBar/person/orderList/main",
+    "pages/tabBar/person/couponList/main",
+
     "pages/newsInfo/main",
     "pages/submitRebate/main",
-    "pages/person/main",
-    "pages/person/orderList/main",
     "pages/rebate/main",
     "pages/coach/main",
     "pages/coupon/main",
@@ -21,17 +23,17 @@
     "selectedColor": "#666666",
     "backgroundColor": "#fff",
     "list": [{
-      "pagePath": "pages/index/main",
+      "pagePath": "pages/tabBar/index/main",
       "iconPath": "/static/img/home-default.png",
       "selectedIconPath": "/static/img/home-active.png",
       "text": "首页"
     },{
-      "pagePath": "pages/newsList/main",
+      "pagePath": "pages/tabBar/newsList/main",
       "iconPath": "/static/img/news-default.png",
       "selectedIconPath": "/static/img/news-active.png",
       "text": "动态"
     }, {
-      "pagePath": "pages/person/main",
+      "pagePath": "pages/tabBar/person/main",
       "iconPath": "/static/img/person-default.png",
       "selectedIconPath": "/static/img/person-active.png",
       "text": "我的"

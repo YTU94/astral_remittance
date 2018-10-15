@@ -112,7 +112,7 @@ export default {
     }
   }
   .location-close{
-      padding: 0 0 0 10px;
+      padding: 5px 10px 0 20px;
     .close-icon{
       width: 18px;
     }

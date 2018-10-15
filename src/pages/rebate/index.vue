@@ -15,7 +15,10 @@
         <div class="item-offer textOverflow">{{store.discountContentMessage}}</div>
         <div class="item-line">
           <p class="item-address textOverflow">{{store.address}}</p>
-          <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="right-btn" @click="goSubmit(store)">
+          <button v-if="needMobile" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="right-btn" @click="goSubmit(store)">
+            拿返利&nbsp;&nbsp;<img class="right-btn__icon" src="../../assets/img/turn-right.png" alt="" mode="widthFix">
+          </button>
+          <button v-else class="right-btn" @click="goSubmit(store, true)">
             拿返利&nbsp;&nbsp;<img class="right-btn__icon" src="../../assets/img/turn-right.png" alt="" mode="widthFix">
           </button>
         </div>
@@ -50,7 +53,19 @@ export default {
       noMore: false
     }
   },
-
+  computed: {
+    needMobile () {
+      if (wx.getStorageSync('userInfo')) {
+        if (wx.getStorageSync('userInfo').mobile) {
+          return false
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
+    }
+  },
   created () {
     const logs = (wx.getStorageSync('logs') || [])
     this.logs = logs.map(log => formatTime(new Date(log)))
@@ -59,8 +74,13 @@ export default {
     this.init()
   },
   methods: {
-    goSubmit (store) {
+    goSubmit (store, navigate) {
       this.curStore = store
+      if (navigate) {
+        wx.redirectTo({
+          url: `./../submitRebate/main?id=${this.curStore.id}&name=${this.curStore.name}&discount=${this.curStore.discountContent}`
+        })
+      }
     },
     init () {
       const data = {
