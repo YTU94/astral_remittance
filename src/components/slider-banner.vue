@@ -4,7 +4,7 @@
     <!-- title -->
     <div class="slider-banner__title">
         <div class="title-msg">热门推荐</div>
-        <div class="title-text" @click="guideTo">全部门店</div>
+        <div class="title-text" @click="guideTo" >{{rightText}}</div>
     </div>
     <!-- slide bannber -->
     <scroll-view  class="slider-banner__slider" scroll-x="true">
@@ -23,6 +23,7 @@
   export default {
     props: {
       text: '',
+      rightText: '',
       imgWidth: {
         default: 100
       },

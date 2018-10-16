@@ -103,7 +103,8 @@ export default {
     if (this.checkLoadmore()) {
       const data = {
         pageSize: this.pageSize,
-        pageNumber: this.curPageNumber + 1
+        pageNumber: this.curPageNumber + 1,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this._getStoreList(data, true)
     } else {
