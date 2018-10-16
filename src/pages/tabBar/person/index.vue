@@ -86,11 +86,12 @@ export default {
       this.$http.coupon.getClientCouponList({}).then(res => {
         res.pageList.list.forEach(e => {
           if (e.hasOwnProperty('couponVo')) {
-            e.couponVo.isUesdName = e.couponVo.isUesd ? '已使用' : '未使用'
+            e.couponVo.isUesdName = e.isUsed ? '已使用' : '未使用'
             e.couponVo.eTime = formatTime(e.couponVo.effectTime, true)
           }
         })
         this.couponList = res.pageList.list
+        console.log('this.couponList', this.couponList)
         this.couponListTotal = res.pageList.count
       })
     },
