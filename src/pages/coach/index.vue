@@ -22,10 +22,10 @@
 
     <!-- coach list -->
     <div class="coach-list">
-      <coach-item v-for="(obj, index) in coachList" :key="index" :coachItem="obj"></coach-item>
+      <coach-item v-for="(obj, index) in coachList" :key="index" :coachItem="obj"></coach-item><!-- nomore -->
+      <p v-show="noMore" class="noMore">- 没有更多了 -</p>
     </div>
-    <!-- nomore -->
-    <p v-show="noMore">~~ 没有更多了 ~~</p>
+    
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
       ],
       // list
       total: 0,
-      pageSize: 10,
+      pageSize: 5,
       curPageNumber: 1,
       noMore: false
     }
@@ -75,17 +75,6 @@ export default {
       this._getCoachList(data)
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
     },
-    onReachBottom (e) {
-      if (this.checkLoadmore()) {
-        const data = {
-          pageSize: this.pageSize,
-          pageNumber: this.curPageNumber + 1
-        }
-        this._getCoachList(data, true)
-      } else {
-        this.noMore = true
-      }
-    },
     navigateToNews (id) {
       wx.navigateTo({
         url: `../newsInfo/main?id=${id}`
@@ -94,17 +83,22 @@ export default {
     _getCoachList (data, merge) {
       this.$http.coach.getCoachList(data).then(res => {
         this.total = parseInt(res.pageList.count)
-        res.pageList.list.forEach(obj => {
-          obj.name1 = obj.name
-          obj.name2 = obj.address
-          obj.info = 'asdasdasd'
-          obj.tags = ['123123', '金牌打手']
-        })
+        try {
+          res.pageList.list.forEach(obj => {
+            obj.name1 = obj.name
+            obj.name2 = obj.address
+            obj.info = 'asdasdasd'
+            obj.tags = ['123123', '金牌打手']
+          })
+        } catch (error) {
+          console.log(error)
+        }
         if (merge) {
-          this.coachList = this.coachList.concact(res.pageList.list)
+          this.coachList = this.coachList.concat(res.pageList.list)
         } else {
           this.coachList = res.pageList.list
         }
+        console.log('coachList', this.coachList)
       })
     },
     _getArticleList (data, merge) {
@@ -126,6 +120,18 @@ export default {
       } else {
         return true
       }
+    }
+  },
+  onReachBottom (e) {
+    if (this.checkLoadmore()) {
+      this.curPageNumber++
+      const data = {
+        pageSize: this.pageSize,
+        pageNumber: this.curPageNumber
+      }
+      this._getCoachList(data, true)
+    } else {
+      this.noMore = true
     }
   }
 }
@@ -159,6 +165,12 @@ export default {
       width: 200px;
       height: 200px;
     }
+  }
+  .noMore{
+    text-align: center;
+    font-size: 24px;
+    background: #fff;
+    line-height: 2.0;
   }
 }
 
