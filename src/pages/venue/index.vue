@@ -79,7 +79,7 @@ export default {
           obj.starList = new Array(parseInt(obj.starLevel))
         })
         if (merge) {
-          this.venueList = this.venueList.concact(res.pageList.list)
+          this.venueList = this.venueList.concat(res.pageList.list)
         } else {
           this.venueList = res.pageList.list
         }
@@ -99,7 +99,7 @@ export default {
     * 功能 fun
     */
     checkLoadmore () {
-      if (this.pageSize * this.curPageNumber > this.total) {
+      if (this.pageSize * this.curPageNumber >= this.total) {
         return false
       } else {
         return true
@@ -108,9 +108,10 @@ export default {
   },
   onReachBottom (e) {
     if (this.checkLoadmore()) {
+      this.curPageNumber++
       const data = {
         pageSize: this.pageSize,
-        pageNumber: this.curPageNumber + 1,
+        pageNumber: this.curPageNumber,
         cityId: wx.getStorageSync('curCity').id || ''
       }
       this._getStoreList(data, true)
