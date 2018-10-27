@@ -1,5 +1,5 @@
 <template>
-  <div class="coach-item">
+  <div class="coach-item" @click="guideTo">
     <div class="left">
       <img :src="coachItem.imgUrl" alt="alt" v-bind:style="{width: imgWidth + 'rpx', height: imgHeight + 'rpx'}">
     </div>
@@ -32,6 +32,11 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    guideTo () {
+      this.$emit('guideTo', this.coachItem)
+    }
   },
   mounted () {}
 }
@@ -99,7 +104,7 @@ export default {
         color: #666666;
         background:rgba(239,239,239,1);
         line-height: 1.6;
-        padding: 0 10px;
+        padding: 5px 10px;
         margin-right: 15px;
         &:last-child{
           margin-right: 0;

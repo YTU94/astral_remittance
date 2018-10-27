@@ -8,7 +8,7 @@
     </div>
     <!-- slide bannber -->
     <scroll-view  class="slider-banner__slider" scroll-x="true">
-      <view v-if="sliderList" class="slider-item" v-for="(item, index) in sliderList" :key="index">
+      <view v-if="sliderList" class="slider-item" v-for="(item, index) in sliderList" @click="clickHandle(item)" :key="index">
         <img class="slider-item__img" :lazy-load="true" :src="item.imgUrl" alt="图片拍摄中" v-bind:style="{width: imgWidth + 'px', height: imgHeight + 'px'}">
         <!-- <img class="slider-item__img" :src="item.imgUrl" :width="imgWidth + 'rpx'" :height="imgHeight + 'rpx'"> -->
         <p class="slider-item__msgOne">{{item.name1}}</p>
@@ -70,6 +70,9 @@
       },
       guideTo () {
         this.$emit('guideTo', {})
+      },
+      clickHandle (e) {
+        this.$emit('clickHandle', e)
       }
     }
   }
@@ -109,6 +112,7 @@
       display: inline-block;
       width: auto;
       margin: 0 10px;
+      width: 200px;
       &__img{
         border-radius: 10px;
       }
@@ -116,11 +120,17 @@
         color: #333333;
         font-size: 24px;
         margin-top: 10px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
       &__msgTwo{
         color: #999999;
         font-size: 20px;
         margin-bottom: 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
   }

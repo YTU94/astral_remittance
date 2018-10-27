@@ -10,7 +10,9 @@
     "pages/submitRebate/main",
     "pages/rebate/main",
     "pages/coach/main",
+    "pages/coachInfo/main",
     "pages/coupon/main",
+    "pages/venueInfo/main",
     "pages/venue/main"
   ],
   "window": {

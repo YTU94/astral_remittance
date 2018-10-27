@@ -5,13 +5,13 @@
       <swiper-banner :swiperList="articleList" @navigateTo="navigateToNews"></swiper-banner>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner :sliderList="venueList" :imgWidth="100" :imgHeight="100"></slider-banner>
+    <slider-banner :sliderList="venueList" @clickHandle="sliderClickHandle" :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 选择门店 -->
     <div class="select-venue">
       <select-bar text="选择门店"></select-bar>
     </div>
     <div class="venue-list">
-      <venue-item v-for="(obj, index) in venueList" :key="index" :venueItem="obj"></venue-item>
+      <venue-item v-for="(obj, index) in venueList" :key="index" @guideTo="sliderClickHandle" :venueItem="obj"></venue-item>
     </div>
   </div>
 </template>
@@ -63,6 +63,12 @@ export default {
         url: `../newsInfo/main?id=${id}`
       })
     },
+    sliderClickHandle (e) {
+      console.log('sliderClickHandle', e)
+      wx.navigateTo({
+        url: `./../venueInfo/main?venueInfo=${JSON.stringify(e)}`
+      })
+    },
     _getStoreList (data, merge) {
       this.$http.store.getStoreList(data).then(res => {
         this.total = res.pageList.count
@@ -70,6 +76,7 @@ export default {
           obj.name1 = obj.name
           obj.name2 = obj.address
           obj.unit = true
+          obj.starList = new Array(parseInt(obj.starLevel))
         })
         if (merge) {
           this.venueList = this.venueList.concact(res.pageList.list)

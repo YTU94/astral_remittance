@@ -87,7 +87,7 @@ export default {
   }
   .info-img{
     width: 100%;
-    height: 200px;
+    height: auto;
     margin-bottom: 30px;
     overflow: hidden;
     img{
