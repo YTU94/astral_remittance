@@ -47,7 +47,8 @@ export default {
     init () {
       const data = {
         pageNumber: 1,
-        pageSize: 10
+        pageSize: 10,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this.$http.coupon.getCouponList(data).then(res => {
         res.pageList.list.map(e => {
