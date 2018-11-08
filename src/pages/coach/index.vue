@@ -70,7 +70,8 @@ export default {
     init () {
       const data = {
         pageSize: 5,
-        pageNumber: 1
+        pageNumber: 1,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this._getCoachList(data)
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
@@ -127,7 +128,8 @@ export default {
       this.curPageNumber++
       const data = {
         pageSize: this.pageSize,
-        pageNumber: this.curPageNumber
+        pageNumber: this.curPageNumber,
+        cityId: wx.getStorageSync('curCity').id || ''
       }
       this._getCoachList(data, true)
     } else {

@@ -115,7 +115,7 @@ export default {
       if (this.curSelectCoupon) {
         if (this.curSelectCoupon.contentList && this.consumeMoney) {
           if (parseFloat(this.consumeMoney) > parseFloat(this.curSelectCoupon.contentList[0])) {
-            return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100 + parseInt(this.curSelectCoupon.contentList[1])
+            return (parseFloat(this.consumeMoney) - parseInt(this.curSelectCoupon.contentList[1])) * parseFloat(this.store.discount) / 100
           } else {
             return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100
           }
