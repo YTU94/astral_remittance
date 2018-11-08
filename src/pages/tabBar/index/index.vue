@@ -29,7 +29,7 @@
       </div>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner :sliderList="sliderList" rightText="全部门店"  @guideTo="guideTo" :imgWidth="100" :imgHeight="100"></slider-banner> 
+    <slider-banner :sliderList="sliderList" rightText="全部门店" @clickHandle="sliderClickHandle"  @guideTo="guideTo" :imgWidth="100" :imgHeight="100"></slider-banner> 
   </div>
 </template>
 
@@ -104,6 +104,12 @@ export default {
         url: './../../venue/main'
       })
     },
+    sliderClickHandle (e) {
+      console.log('sliderClickHandle', e)
+      wx.navigateTo({
+        url: `./../../venueInfo/main?venueInfo=${JSON.stringify(e)}`
+      })
+    },
     clickHandle (msg, ev) {
       console.log('clickHandle:', msg, ev)
     },
@@ -114,7 +120,7 @@ export default {
     },
     navigateToNews (id) {
       wx.navigateTo({
-        url: `../newsInfo/main?id=${id}`
+        url: `../../newsInfo/main?id=${id}`
       })
     },
     // 刷新

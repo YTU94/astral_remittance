@@ -22,7 +22,8 @@
 
     <!-- coach list -->
     <div class="coach-list">
-      <coach-item v-for="(obj, index) in coachList" :key="index" :coachItem="obj"></coach-item><!-- nomore -->
+      <coach-item v-for="(obj, index) in coachList" :key="index" @guideTo="guideTo" :coachItem="obj"></coach-item>
+      <!-- nomore -->
       <p v-show="noMore" class="noMore">- 没有更多了 -</p>
     </div>
     
@@ -79,6 +80,12 @@ export default {
     navigateToNews (id) {
       wx.navigateTo({
         url: `../newsInfo/main?id=${id}`
+      })
+    },
+    guideTo (e) {
+      console.log('coachInfo', e)
+      wx.navigateTo({
+        url: `./../coachInfo/main?coachInfo=${JSON.stringify(e)}`
       })
     },
     _getCoachList (data, merge) {
