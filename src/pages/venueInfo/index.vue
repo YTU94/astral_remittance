@@ -26,10 +26,10 @@
       </div>
       <div class="msg-line">
         <div class="msg-line__lable">距离</div>
-        <div class="msg-line__content">{{venueInfo.distance}}/km</div>
+        <div class="msg-line__content">{{venueInfo.distance}}km</div>
       </div>
       
-      <div class="msg-line">
+      <div class="msg-line"></div>
         <div class="msg-line__lable">学员规模</div>
         <div class="msg-line__content">{{venueInfo.inStuNums}}</div>
       </div>
