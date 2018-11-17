@@ -1,5 +1,6 @@
 <template>
 <div>
+    <search></search>
   <div class="location">
     <span class="location-msg" @click="showSeachres = !showSeachres">
       {{curCity}}
@@ -18,7 +19,12 @@
 </template>
 
 <script>
+import search from '@/components/search'
+
 export default {
+  components: {
+    search
+  },
   props: ['text'],
   data () {
     return {

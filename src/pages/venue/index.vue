@@ -10,6 +10,7 @@
     <div class="select-venue">
       <select-bar text="选择门店"></select-bar>
     </div>
+    <search></search>
     <div class="venue-list">
       <venue-item v-for="(obj, index) in venueList" :key="index" @guideTo="sliderClickHandle" :venueItem="obj"></venue-item>
     </div>
@@ -18,6 +19,7 @@
 
 <script>
 // import { formatTime } from '@/utils/index'
+import search from '@/components/search'
 import card from '@/components/card'
 import selectBar from '@/components/base/selectBar'
 import swiperBanner from '@/components/swiper-banner'
@@ -26,6 +28,7 @@ import venueItem from '@/components/list/venueItem'
 
 export default {
   components: {
+    search,
     card,
     selectBar,
     swiperBanner,
