@@ -28,11 +28,10 @@ export default {
   .search-btn{
     flex: 0 0 auto;
     display: inline-block;
-    width: 80rpx;
+    width: 92rpx;
     margin-left: 20rpx;
     font-size: 20rpx;
     line-height: auto;
-    wh
   }
 }
 </style>

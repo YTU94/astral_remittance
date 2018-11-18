@@ -2,7 +2,7 @@
   <div class="mews-info">
     <p class="info-title">{{newsInfo.title}}</p>
     <div class="line-msg">
-      <span class="info-user">{{newsInfo.creator || 'admin'}}</span>
+      <span class="info-user">{{newsInfo.author || ''}}</span>
       &nbsp;&nbsp;
       <span class="info-date">{{newsInfo.createdTime}}</span>
     </div>

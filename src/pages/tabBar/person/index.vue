@@ -84,22 +84,22 @@ export default {
     },
     _getClientCouponList () {
       this.$http.coupon.getClientCouponList({}).then(res => {
+        this.couponListTotal = res.pageList.count
+        this.couponList = res.pageList.list
         res.pageList.list.forEach(e => {
           if (e.hasOwnProperty('couponVo')) {
             e.couponVo.isUesdName = e.isUsed ? '已使用' : '未使用'
             e.couponVo.eTime = formatTime(e.couponVo.effectTime, true)
           }
         })
-        this.couponList = res.pageList.list
         console.log('this.couponList', this.couponList)
-        this.couponListTotal = res.pageList.count
       })
     },
     _getUserRebateOrderList (data) {
       this.$http.rebate.getUserRebateOrderList(data).then(res => {
         res.pageList.list.forEach(e => {
           if (e.hasOwnProperty('createdTime')) {
-            e.statusName = e.status === 'SUBMITED' ? '已提交' : '已领取'
+            e.statusName = e.status === 'SUBMITED' ? '已提交' : (e.status === 'INACTIVE' ? '已作废' : (e.status === 'DONE' ? '已领取' : '无'))
             e.createdTimeFormated = formatTime(e.createdTime, true)
           }
         })

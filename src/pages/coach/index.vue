@@ -142,6 +142,14 @@ export default {
     } else {
       this.noMore = true
     }
+  },
+  onHide () {
+    console.log('当前页置1')
+    this.curPageNumber = 1
+  },
+  onUnload () {
+    console.log('当前页置1')
+    this.curPageNumber = 1
   }
 }
 </script>

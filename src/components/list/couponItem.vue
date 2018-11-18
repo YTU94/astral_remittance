@@ -11,6 +11,7 @@
           <div class="line-left coupon-price" v-if="couponItem.contentList && couponItem.contentList.length > 0">
             满{{couponItem.contentList[0]}}减{{couponItem.contentList[1]}}
           </div>
+          <div class="line-left coupon-price" v-else>{{couponItem.content}}%</div>
           <div class="line-right coupon-btn" v-if="couponItem.operation" @click="collectCoupons(couponItem)">{{couponItem.operation}}</div>
           <div class="line-right coupon-btn" v-else-if="couponItem.isUesdName">{{couponItem.isUesdName}}</div>
         </div>

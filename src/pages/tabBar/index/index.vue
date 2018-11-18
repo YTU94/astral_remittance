@@ -63,8 +63,6 @@ export default {
   methods: {
     init () {
       const data = {
-        pageSize: 4,
-        pageNumber: 1,
         isHot: true,
         cityId: wx.getStorageSync('curCity').id || ''
       }

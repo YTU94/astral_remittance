@@ -4,10 +4,12 @@
     <div class="coupon-item" v-if="couponList" v-for="(coupon, index) in couponList" :key="index">
       <img class="coupone-item__img" src="../../assets/img/coupons-bg.png" alt="" mode="widthFix">
       <div class="coupone-item__c">
+        <!-- <p>{{coupon.name}}</p> -->
         <div class="item-line">
           <div class="line-left coupon-price" v-if="coupon.contentList && coupon.contentList.length > 0">
             满{{coupon.contentList[0]}}减{{coupon.contentList[1]}}
           </div>
+          <div class="line-left coupon-price" v-else>{{coupon.content}}%</div>
           <div class="line-right coupon-btn" @click="collectCoupons(coupon.id)">领取</div>
         </div>
         <div class="item-line">
@@ -31,7 +33,8 @@ export default {
   data () {
     return {
       logs: [],
-      couponList: []
+      couponList: [],
+      curPageNumber: 1
     }
   },
 
@@ -74,6 +77,14 @@ export default {
           })
         }, 1500)
       })
+    },
+    onHide () {
+      console.log('当前页置1')
+      this.curPageNumber = 1
+    },
+    onUnload () {
+      console.log('当前页置1')
+      this.curPageNumber = 1
     }
   }
 }

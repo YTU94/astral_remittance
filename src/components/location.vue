@@ -1,6 +1,5 @@
 <template>
 <div>
-    <search></search>
   <div class="location">
     <span class="location-msg" @click="showSeachres = !showSeachres">
       {{curCity}}

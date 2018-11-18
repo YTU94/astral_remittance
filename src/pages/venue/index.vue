@@ -5,7 +5,7 @@
       <swiper-banner :swiperList="articleList" @navigateTo="navigateToNews"></swiper-banner>
     </div>
     <!-- 热门推荐 -->
-    <slider-banner :sliderList="venueList" @clickHandle="sliderClickHandle" :imgWidth="100" :imgHeight="100"></slider-banner>
+    <slider-banner :sliderList="hotVenueList" @clickHandle="sliderClickHandle" :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 选择门店 -->
     <div class="select-venue">
       <select-bar text="选择门店"></select-bar>
@@ -41,6 +41,7 @@ export default {
       articleList: [],
       logs: [],
       venueList: [],
+      hotVenueList: [],
       // list
       total: 0,
       pageSize: 5,
@@ -58,6 +59,18 @@ export default {
         pageNumber: 1,
         cityId: wx.getStorageSync('curCity').id || ''
       }
+      const dataOther = {
+        isHot: true,
+        fuzzyContent: '渣渣',
+        cityId: wx.getStorageSync('curCity').id || ''
+      }
+      this.$http.store.getStoreList(dataOther).then(res => {
+        res.pageList.list.forEach(obj => {
+          obj.name1 = obj.name
+          obj.name2 = obj.address
+        })
+        this.hotVenueList = res.pageList.list
+      })
       this._getStoreList(data)
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
     },
@@ -102,6 +115,7 @@ export default {
     * 功能 fun
     */
     checkLoadmore () {
+      console.log(this.total, this.curPageNumber)
       if (this.pageSize * this.curPageNumber >= this.total) {
         return false
       } else {
@@ -121,6 +135,14 @@ export default {
     } else {
       this.noMore = true
     }
+  },
+  onHide () {
+    console.log('当前页置1')
+    this.curPageNumber = 1
+  },
+  onUnload () {
+    console.log('当前页置1')
+    this.curPageNumber = 1
   }
 }
 </script>

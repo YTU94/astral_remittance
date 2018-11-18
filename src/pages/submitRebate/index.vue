@@ -22,9 +22,11 @@
       
       <div class="order-line">
         <span class="order-line__name">可用优惠</span>
-        
-        <span class="order-line__rebate coupon-canUesd" v-if="curSelectCoupon&&curSelectCoupon.contentList" @click="showCouponModel=!showCouponModel">
+        <span class="order-line__rebate coupon-canUesd" v-if="curSelectCoupon && curSelectCoupon.type === 'FULL_REDUCTION' && curSelectCoupon.contentList && curSelectCoupon.contentList.length > 0" @click="showCouponModel=!showCouponModel">
           满{{curSelectCoupon.contentList[0]}}减{{curSelectCoupon.contentList[1]}}
+        </span>
+        <span class="order-line__rebate coupon-canUesd" v-else-if="curSelectCoupon && curSelectCoupon.type === 'RATE' && curSelectCoupon.content" @click="showCouponModel=!showCouponModel">
+          {{curSelectCoupon.content}}%
         </span>
         <span v-else class="order-line__rebate coupon-canUesd" @click="showCouponModel=!showCouponModel">
           <img class="order-line__rebate-icon" src="../../assets/img/coupon-icon.png" alt="" mode="widthFix">&nbsp;{{couponList.length}}张可用
@@ -66,15 +68,6 @@
       </div>
       <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
     </div>
-
-    <!-- rebater model -->
-    <div class="blank-model" v-show="showCouponModel">
-      <div class="model-close__icon" @click="showCouponModel = false">
-        <img class="close-icon"  src="../../assets/img/close-icon.png" alt="" mode="widthFix">
-      </div>
-      <coupon-item :couponItem="item.couponVo" v-if="item" v-for="(item, index) in couponList" :key="index" @operateCoupons="operateCoupons"></coupon-item>
-    </div>
-
   </div>
 </template>
 
@@ -104,7 +97,7 @@ export default {
         discount: '',
         attachment: '' // 附件 img
       },
-      consumeMoney: '', // 消费金额
+      consumeMoney: '200', // 消费金额
       imgUrl: null,
       couponList: [],
       curSelectCoupon: null // 当前选中优惠
@@ -113,12 +106,17 @@ export default {
   computed: {
     returnMoney () {
       if (this.curSelectCoupon) {
+        // 满减
         if (this.curSelectCoupon.contentList && this.consumeMoney) {
-          if (parseFloat(this.consumeMoney) > parseFloat(this.curSelectCoupon.contentList[0])) {
-            return (parseFloat(this.consumeMoney) - parseInt(this.curSelectCoupon.contentList[1])) * parseFloat(this.store.discount) / 100
+          if (parseFloat(this.consumeMoney) >= parseFloat(this.curSelectCoupon.contentList[0])) {
+            return (parseFloat(this.consumeMoney) - parseInt(this.curSelectCoupon.contentList[1])) * parseFloat(this.store.discount) / 100 + parseInt(this.curSelectCoupon.contentList[1])
           } else {
             return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100
           }
+        }
+        // 折扣
+        if (this.curSelectCoupon.content && this.consumeMoney) {
+          return (parseFloat(this.consumeMoney) - parseFloat(this.consumeMoney) * parseInt(this.curSelectCoupon.content) / 100) * parseFloat(this.store.discount) / 100 + parseFloat(this.consumeMoney) * parseFloat(this.curSelectCoupon.content) / 100
         }
       } else {
         return parseFloat(this.consumeMoney) * parseFloat(this.store.discount) / 100 || 0
@@ -170,6 +168,7 @@ export default {
               const data = res.data
               // do something
               that.store.attachment = JSON.parse(data).vo
+              console.log('图片放回地址', that.store.attachment)
             }
           })
         }
@@ -212,13 +211,13 @@ export default {
         available: true
       }
       this.$http.coupon.getClientCouponList(data).then(res => {
+        this.couponList = res.pageList.list
         res.pageList.list.map(e => {
           if (e.hasOwnProperty('couponVo')) {
             e.couponVo.eTime = formatTime(e.couponVo.effectTime)
             e.couponVo.operation = '使用'
           }
         })
-        this.couponList = res.pageList.list
       })
     },
     // 提交返利
