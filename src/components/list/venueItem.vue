@@ -11,7 +11,7 @@
         </slot>
       </div>
       <div class="line-address">{{venueItem.address}}</div>
-      <div class="line-star" v-if="venueItem.starList && venueItem.starList.length > 0">
+      <div class="line-star" v-if="venueItem.starList && venueItem.starList > 0 && venueItem.starList < 10">
         <span class="star" v-for="(item, index) in venueItem.starList" :key="index">★</span>
       </div>
       <div class="line-distance">

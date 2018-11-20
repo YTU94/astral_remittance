@@ -8,9 +8,11 @@
     <slider-banner :sliderList="hotVenueList" @clickHandle="sliderClickHandle" :imgWidth="100" :imgHeight="100"></slider-banner>
     <!-- 选择门店 -->
     <div class="select-venue">
-      <select-bar text="选择门店"></select-bar>
+      <select-bar text="选择门店" operation="搜索" @toOPreate="toOPreate"></select-bar>
     </div>
-    <search></search>
+    <div class="search-input" v-show="showSearch">
+      <search @confirm="confirm" @cancel="cancel"></search>
+    </div>
     <div class="venue-list">
       <venue-item v-for="(obj, index) in venueList" :key="index" @guideTo="sliderClickHandle" :venueItem="obj"></venue-item>
     </div>
@@ -38,6 +40,7 @@ export default {
 
   data () {
     return {
+      showSearch: false,
       articleList: [],
       logs: [],
       venueList: [],
@@ -54,14 +57,13 @@ export default {
   },
   methods: {
     init () {
-      const data = {
+      const data = { // eslint-disable-line
         pageSize: 4,
         pageNumber: 1,
         cityId: wx.getStorageSync('curCity').id || ''
       }
       const dataOther = {
         isHot: true,
-        fuzzyContent: '渣渣',
         cityId: wx.getStorageSync('curCity').id || ''
       }
       this.$http.store.getStoreList(dataOther).then(res => {
@@ -71,8 +73,22 @@ export default {
         })
         this.hotVenueList = res.pageList.list
       })
-      this._getStoreList(data)
       this._getArticleList({ pageSize: 3, pageNumber: 1 })
+      this._getStoreList(data)
+    },
+    toOPreate (e) {
+      this.showSearch = true
+    },
+    confirm (e) {
+      const data = {
+        fuzzyContent: e.mp.detail.value,
+        cityId: wx.getStorageSync('curCity').id || ''
+      }
+      this.showSearch = false
+      this._getStoreList(data)
+    },
+    cancel () {
+      this.showSearch = false
     },
     navigateToNews (id) {
       wx.navigateTo({
@@ -92,7 +108,7 @@ export default {
           obj.name1 = obj.name
           obj.name2 = obj.address
           obj.unit = true
-          obj.starList = new Array(parseInt(obj.starLevel))
+          obj.starList = parseInt(obj.starLevel)
         })
         if (merge) {
           this.venueList = this.venueList.concat(res.pageList.list)
@@ -161,6 +177,12 @@ export default {
     margin-top: 20px;
     padding: 17px 30px;
     border: 1px solid @border-color;
+    background-color: #fff;
+  }
+  .search-input{
+    width: 100%;
+    padding: 5rpx 20px;
+    box-sizing: border-box;
     background-color: #fff;
   }
   .venue-list{

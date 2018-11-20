@@ -3,7 +3,7 @@
     <div class="select-bar__left">
       <img class="flag-img" src="../../assets/img/flag.png" alt="alt" mode="widthFix">&nbsp;{{text}}
     </div>
-    <div class="select-bar__right">{{operation}}</div>
+    <div class="select-bar__right" @click="toOPreate">{{operation}}</div>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   props: ['text', 'operation'],
   data () {
     return {}
+  },
+  methods: {
+    toOPreate () {
+      this.$emit('toOPreate', this.operation)
+    }
   },
   mounted () {}
 }
