@@ -17,9 +17,11 @@
 
     <!-- 选择门店 -->
     <div class="filter-coach">
-      <select-bar text="全部教练"></select-bar>
+      <select-bar text="全部教练" operation="搜索" @toOPreate="toOPreate"></select-bar>
     </div>
-
+    <div class="search-input" v-show="showSearch">
+      <search @confirm="confirm" @cancel="cancel"></search>
+    </div>
     <!-- coach list -->
     <div class="coach-list">
       <coach-item v-for="(obj, index) in coachList" :key="index" @guideTo="guideTo" :coachItem="obj"></coach-item>
@@ -33,12 +35,14 @@
 <script>
 // Use Vuex
 import store from './store'
+import search from '@/components/search'
 import selectBar from '@/components/base/selectBar'
 import swiperBanner from '@/components/swiper-banner'
 import coachItem from '@/components/list/coachItem'
 
 export default {
   components: {
+    search,
     selectBar,
     coachItem,
     swiperBanner
@@ -50,6 +54,7 @@ export default {
       swiperList: [
         {imgUrl: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg', msg: '金牌教练'}
       ],
+      showSearch: false,
       // list
       total: 0,
       pageSize: 5,
@@ -82,6 +87,21 @@ export default {
         url: `../newsInfo/main?id=${id}`
       })
     },
+    // 搜索相关
+    toOPreate (e) {
+      this.showSearch = true
+    },
+    confirm (e) {
+      const data = {
+        fuzzyContent: e.mp.detail.value,
+        cityId: wx.getStorageSync('curCity').id || ''
+      }
+      this.showSearch = false
+      this._getCoachList(data)
+    },
+    cancel () {
+      this.showSearch = false
+    },
     guideTo (e) {
       console.log('coachInfo', e)
       wx.navigateTo({
@@ -95,8 +115,8 @@ export default {
           res.pageList.list.forEach(obj => {
             obj.name1 = obj.name
             obj.name2 = obj.address
-            obj.info = 'asdasdasd'
-            obj.tags = ['123123', '金牌打手']
+            obj.info = obj.speciality
+            obj.tags = obj.speciality.split(',')
           })
         } catch (error) {
           console.log(error)

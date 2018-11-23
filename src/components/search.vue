@@ -34,9 +34,13 @@ export default {
   width: 100%;
   height: auto;
   display: flex;
+  padding: 10rpx 20rpx;
+  box-sizing: border-box;
   .search-input{
     border: 1px solid #eee;
     flex: 1;
+    background: #fff;
+    border-radius: 10rpx;
   }
   .search-btn{
     flex: 0 0 auto;
